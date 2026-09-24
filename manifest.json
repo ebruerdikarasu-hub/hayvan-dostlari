@@ -1,19 +1,17 @@
 {
   "name": "Hayvan Dostları",
   "short_name": "Hayvan Dostları",
-  "id": "./",
   "start_url": "./index.html",
-  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#FFF8EC",
   "theme_color": "#FFC23C",
-  "lang": "tr",
-  "dir": "ltr",
   "icons": [
     {
       "src": "icon-192.png",
-      "sizes": "192x192",
+      "sizes": "192x192Kısa anlamı:
+- “Unable to create Google Play package” = Google Play paketini üretemedi
+",
       "type": "image/png"
     }
   ]
+}
