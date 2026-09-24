@@ -8,9 +8,7 @@
   "icons": [
     {
       "src": "icon-192.png",
-      "sizes": "192x192Kısa anlamı:
-- “Unable to create Google Play package” = Google Play paketini üretemedi
-",
+      "sizes": "192x192",
       "type": "image/png"
     }
   ]
