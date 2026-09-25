@@ -1,10 +1,12 @@
-"id": "com.ebruerdikarasu.hayvandostlari",
+json{
+  "id": "com.ebruerdikarasu.hayvandostlari",
   "name": "Hayvan Dostları",
   "short_name": "Hayvan Dostları",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#FFF8EC",
   "theme_color": "#FFC23C",
+  "description": "Çocuklar için eğlenceli ve eğitici hayvan dostları uygulaması.",
   "icons": [
     {
       "src": "icon-192.png",
