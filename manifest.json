@@ -1,6 +1,6 @@
-"name": "Hayvan Dostları - Öğren & Eğlen",
+{
+  "name": "Hayvan Dostları",
   "short_name": "Hayvan Dostları",
-  "description": "5-8 yaş çocuklar için sesli, çok dilli, sevgi temalı eğitici oyun: hayvanlar, gezegenler, meslekler, renkler ve daha fazlası.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
@@ -10,11 +10,25 @@
   "theme_color": "#FFC23C",
   "lang": "tr",
   "dir": "ltr",
-  "categories": ["education", "kids", "games"],
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "related_applications": [
     {
@@ -24,3 +38,4 @@
     }
   ]
 }
+
