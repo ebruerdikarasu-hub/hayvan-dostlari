@@ -1,4 +1,5 @@
-  "id": "com.ebruerdikarasu.hayvandostlari",
+"id": "com.ebruerdikarasu.hayvandostlari",
+  "package_id": "com.ebruerdikarasu.hayvandostlari",
   "name": "Hayvan Dostları",
   "short_name": "Hayvan Dostları",
   "start_url": "./index.html",
