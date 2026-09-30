@@ -23,7 +23,7 @@
   --radius-lg:32px; --radius-md:22px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{margin:0;padding:0;width:100%;overflow-x:hidden;}
+html,body{margin:0;padding:0;width:100%;max-width:100vw;overflow-x:hidden;}
 body{min-height:100vh;font-family:'Quicksand',sans-serif;color:var(--ink);
   background:radial-gradient(circle at 15% 8%,#FFE9BE 0%,transparent 45%),
              radial-gradient(circle at 90% 85%,#CFEFD9 0%,transparent 40%),var(--cream);
@@ -732,7 +732,7 @@ function burstConfetti(n){
   const emojis=['🎉','⭐','💚','🐾','✨','🌟'];
   for(let i=0;i<n;i++){
     const el=document.createElement('div'); el.className='confetti-piece'; el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left='calc(' + (Math.random()*78) + 'vw)'; el.style.maxWidth='40px'; const dur=1.3+Math.random()*0.9;
+    el.style.left='calc(' + (3+Math.random()*72) + 'vw)'; el.style.maxWidth='40px'; const dur=1.3+Math.random()*0.9;
     el.style.animationDuration=dur+'s'; el.style.fontSize=(18+Math.random()*16)+'px';
     document.body.appendChild(el); setTimeout(()=>el.remove(), dur*1000+100);
   }
