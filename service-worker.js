@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hayvan-dostlari-v1';
+const CACHE_NAME = 'hayvan-dostlari-v2';
 const APP_SHELL = [
   './',
   './index.html',
