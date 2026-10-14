@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hayvan-dostlari-v2';
+const CACHE_NAME = 'hayvan-dostlari-v3';
 const APP_SHELL = [
   './',
   './index.html',
@@ -27,19 +27,18 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Cache-first for app shell, network-first fallback for everything else (e.g. Google Fonts)
+// Network-first: always try to get the latest files; fall back to cache when offline.
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request)
-        .then((resp) => {
+    fetch(event.request)
+      .then((resp) => {
+        if (resp && resp.ok) {
           const copy = resp.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy)).catch(() => {});
-          return resp;
-        })
-        .catch(() => cached);
-    })
+        }
+        return resp;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
