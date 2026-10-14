@@ -630,24 +630,13 @@ async function getBillingService(){
     return await window.getDigitalGoodsService(BILLING_METHOD);
   }catch(e){ return null; }
 }
-let lastBillingDiag = '';
-function billingEnv(){
-  const m = (navigator.userAgent.match(/Chrome\/(\d+)/)||[])[1] || '?';
-  const twa = (document.referrer||'').indexOf('android-app://')===0 ? 'evet' : 'hayir';
-  return 'Chrome '+m+' | TWA: '+twa+' | DG: '+(window.getDigitalGoodsService?'var':'yok')+' | PR: '+(window.PaymentRequest?'var':'yok');
-}
 function purchasePremium(onResult){
   (async()=>{
-    lastBillingDiag = billingEnv();
     try{
-      if(!window.getDigitalGoodsService){ lastBillingDiag += ' | Sebep: getDigitalGoodsService tanimsiz'; onResult(null); return; }
-      let service;
-      try{ service = await window.getDigitalGoodsService(BILLING_METHOD); }
-      catch(e){ lastBillingDiag += ' | Sebep: servis hatasi '+(e&&e.name)+': '+(e&&e.message); onResult(null); return; }
-      if(!service){ lastBillingDiag += ' | Sebep: servis bos'; onResult(null); return; }
-      if(!window.PaymentRequest){ lastBillingDiag += ' | Sebep: PaymentRequest yok'; onResult(null); return; }
+      const service = await getBillingService();
+      if(!service || !window.PaymentRequest){ onResult(null); return; }   // not in Play build
       const details = await service.getDetails([PREMIUM_SKU]);
-      if(!details || !details.length){ lastBillingDiag += ' | Sebep: urun bulunamadi ('+PREMIUM_SKU+')'; onResult(false); return; }
+      if(!details || !details.length){ onResult(false); return; }
       const request = new PaymentRequest(
         [{ supportedMethods: BILLING_METHOD, data: { sku: PREMIUM_SKU } }],
         { total: { label: 'Premium', amount: { currency: 'USD', value: '0' } } }
@@ -658,7 +647,7 @@ function purchasePremium(onResult){
       await response.complete('success');
       store.premium = true;
       onResult(true);
-    }catch(e){ lastBillingDiag += ' | Sebep: hata '+(e&&e.name)+': '+(e&&e.message); onResult(false); }
+    }catch(e){ onResult(false); }
   })();
 }
 /* Restores Premium after reinstall / cleared data, if the purchase exists on this Google account. */
@@ -1143,8 +1132,8 @@ function renderPremium(returnFn){
           b2.disabled = true;
           purchasePremium((result)=>{
             if(result===true){ playApplause(); burstConfetti(24); renderPremium(returnFn); }
-            else if(result===false){ document.getElementById('premMsg').innerHTML = 'Satın alma tamamlanamadı, tekrar dene.<br><span style="font-size:11px;color:#777;font-weight:600;word-break:break-word;">'+lastBillingDiag+'</span>'; b2.disabled=false; }
-            else{ document.getElementById('premMsg').innerHTML = 'Bu satın alma Play Store sürümünde etkinleşir.<br><span style="font-size:11px;color:#777;font-weight:600;word-break:break-word;">'+lastBillingDiag+'</span>'; b2.disabled=false; }
+            else if(result===false){ document.getElementById('premMsg').textContent = 'Satın alma tamamlanamadı, tekrar dene.'; b2.disabled=false; }
+            else{ document.getElementById('premMsg').textContent = 'Bu satın alma Play Store sürümünde etkinleşir.'; b2.disabled=false; }
           });
         }, 50);
       },
