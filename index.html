@@ -549,6 +549,7 @@ function speakEnglish(text){
     const u=new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=0.85; u.pitch=1.2;
     const vv = window.speechSynthesis.getVoices().find(v=>v.lang && v.lang.toLowerCase().startsWith('en'));
     if(vv) u.voice=vv;
+    u.onstart=()=>MUSIC.duck(true); u.onend=()=>MUSIC.duck(false); u.onerror=()=>MUSIC.duck(false);
     window.speechSynthesis.speak(u);
   }catch(e){}
 }
@@ -923,6 +924,64 @@ let quiz = null, match = null, comp = null;
 ============================================================ */
 let audioCtx = null;
 function ensureAudio(){ if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } if(audioCtx.state==='suspended') audioCtx.resume(); }
+
+/* ============================================================
+   BACKGROUND MUSIC — original melody, generated live with Web Audio
+   (no audio files, no licence needed). Ducks while a question is spoken.
+============================================================ */
+const MUSIC = (function(){
+  const BPM = 112, STEP = 60 / BPM / 2;            // eighth notes
+  const N = n => 440 * Math.pow(2, (n - 69) / 12);  // MIDI -> Hz
+  // cheerful 8-bar tune in C major (0 = rest)
+  const MEL = [72,0,76,79, 81,79,76,0,  74,0,77,81, 79,77,74,0,  72,74,76,77, 79,0,81,79,  77,76,74,76, 72,0,0,0,
+               76,0,79,84, 83,81,79,0,  77,0,81,84, 83,81,77,0,  79,81,79,77, 76,74,76,79, 74,0,79,0, 72,0,0,0];
+  const BASS = [48,55,52,55, 53,57,50,55, 48,55,52,55, 53,55,48,48];   // one per half bar
+  let gain = null, timer = null, step = 0, nextT = 0, on = false;
+  const store = {
+    get(){ try{ const v = localStorage.getItem('hd_music'); return v === null ? true : v === '1'; }catch(e){ return true; } },
+    set(v){ try{ localStorage.setItem('hd_music', v ? '1' : '0'); }catch(e){} }
+  };
+  function tone(freq, t, dur, type, vol){
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(gain); o.start(t); o.stop(t + dur + 0.05);
+  }
+  function schedule(){
+    while(nextT < audioCtx.currentTime + 0.25){
+      const m = MEL[step % MEL.length];
+      if(m){ tone(N(m), nextT, STEP * 1.6, 'triangle', 0.22); tone(N(m + 12), nextT, STEP * 0.6, 'sine', 0.05); }
+      if(step % 4 === 0){ tone(N(BASS[(step / 4) % BASS.length]), nextT, STEP * 3.4, 'sine', 0.20); }
+      if(step % 2 === 1){ tone(N(96), nextT, 0.04, 'square', 0.012); }   // soft tick
+      nextT += STEP; step++;
+    }
+  }
+  function start(){
+    if(!store.get() || on) return;
+    try{
+      ensureAudio();
+      gain = audioCtx.createGain(); gain.gain.value = 0.0001; gain.connect(audioCtx.destination);
+      gain.gain.exponentialRampToValueAtTime(0.35, audioCtx.currentTime + 1.2);
+      step = 0; nextT = audioCtx.currentTime + 0.1; on = true;
+      timer = setInterval(schedule, 60); schedule();
+    }catch(e){}
+  }
+  function stop(){
+    on = false; if(timer){ clearInterval(timer); timer = null; }
+    if(gain){ const g = gain; try{ g.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.2); setTimeout(()=>{ try{ g.disconnect(); }catch(e){} }, 900); }catch(e){} gain = null; }
+  }
+  function duck(down){ if(!gain) return; try{ gain.gain.setTargetAtTime(down ? 0.07 : 0.35, audioCtx.currentTime, 0.15); }catch(e){} }
+  document.addEventListener('visibilitychange', ()=>{ if(document.hidden) stop(); });
+  return {
+    start, stop, duck,
+    get enabled(){ return store.get(); },
+    toggle(){ const v = !store.get(); store.set(v); if(v) start(); else stop(); return v; },
+    resume(){ if(store.get() && !on) start(); }
+  };
+})();
+
 function playApplause(){
   if(!store.soundOn) return;
   ensureAudio(); const ctx=audioCtx, now=ctx.currentTime;
@@ -980,6 +1039,7 @@ function speak(text){
       || langVoices.find(v => !/male|erkek|man\b/i.test(v.name))
       || langVoices[0];
     if(vv) u.voice=vv;
+    u.onstart=()=>MUSIC.duck(true); u.onend=()=>MUSIC.duck(false); u.onerror=()=>MUSIC.duck(false);
     window.speechSynthesis.speak(u);
   }catch(e){}
 }
@@ -1134,7 +1194,7 @@ function renderIntro(){
     </div>`;
   wireLangRow(renderIntro);
   document.getElementById('startBtn').addEventListener('click', ()=>{
-    ensureAudio(); speak(t('introSpeak')); renderAuthGate();
+    ensureAudio(); MUSIC.start(); try{ history.pushState({hd:1},''); }catch(e){} renderAuthGate();
   });
 }
 
@@ -1152,7 +1212,8 @@ function renderAuthGate(){
 function renderProfileEdit(){
   let av = profile.avatar || '🦊';
   stage.innerHTML = `
-    <div class="screen">
+    <div class="screen top">
+      ${topNav()}
       <div class="card">
         <div class="big-avatar wiggle" id="avPreview">${av}</div>
         <h2 style="margin-bottom:10px;">${t('profTitle')}</h2>
@@ -1176,6 +1237,7 @@ function renderProfileEdit(){
     playDing(); renderHub();
   };
   document.getElementById('profCancel').onclick = renderHub;
+  wireBack(renderHub);
 }
 let pendingAvatar = AVATARS[0];
 let pendingPin = '';
@@ -1298,10 +1360,12 @@ function renderHub(){
   const greetName = profile ? profile.username : '';
   stage.innerHTML = `
     <div class="screen top">
+      ${topNav()}
       ${langRow(true)}
       <div class="hub-header">
         <div class="hub-title" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">${greetAvatar} ${t('hubHello')}${greetName?', '+greetName:''}! <button class="badge" id="editProf" style="border:none;cursor:pointer;font-size:13px;">${greetName?'✏️':t('profEditBtn')}</button></div>
         <div style="display:flex;align-items:center;gap:8px;">
+          <button class="badge" id="musicToggle" style="border:none;cursor:pointer;${MUSIC.enabled?'':'opacity:.45;'}" aria-label="Müzik">🎵</button>
           <button class="badge" id="soundToggle" style="border:none;cursor:pointer;">${store.soundOn?'🔊':'🔇'}</button>
           <div class="badge ${prem?'premium-badge':''}">${prem?t('premiumOn'):t('premiumOff')}</div>
         </div>
@@ -1331,6 +1395,9 @@ function renderHub(){
   wireLangRow(renderHub);
   document.getElementById('soundToggle').onclick = ()=>{ store.soundOn = !store.soundOn; renderHub(); };
   document.getElementById('editProf').onclick = renderProfileEdit;
+  document.getElementById('musicToggle').onclick = ()=>{ ensureAudio(); MUSIC.toggle(); renderHub(); };
+  wireBack(()=>{ MUSIC.stop(); renderIntro(); });
+  MUSIC.resume();
   document.getElementById('tileSections').onclick = renderSectionGrid;
   document.getElementById('tileMatch').onclick = renderMatchSectionPicker;
   document.getElementById('tileComp').onclick = ()=>{ if(!store.premium){ renderPremium(renderHub); } else { renderCompHome(); } };
@@ -1521,27 +1588,53 @@ function onQuizAnswer(e){
    ADS HOOK (no-op unless wrapped natively with Capacitor + AdMob plugin —
    see PLAY_STORE_REHBERI.md "Reklamlar" section for setup steps)
 ============================================================ */
-function maybeShowInterstitial(onDone){
+/* ---- WEB-ONLY ADS (Google AdSense "H5 Games Ads") ----
+   ⚠️ KAPALI. AdSense onayı gelince ADSENSE_CLIENT'a yayıncı kimliğini yazın (ör. 'ca-pub-1234567890123456').
+   Reklam ASLA Android uygulamasında (IS_TWA) gösterilmez: Play'deki "reklam içermiyor" beyanı geçerli kalır. */
+const ADSENSE_CLIENT = '';
+const WEB_ADS = !!ADSENSE_CLIENT && !IS_TWA;
+let adBreak = null;
+if(WEB_ADS){
   try{
-    if(window.Capacitor && window.AdMob && typeof window.AdMob.showInterstitial === 'function'){
-      window.AdMob.showInterstitial().then(onDone).catch(onDone);
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.requestNonPersonalizedAds = 1;   // child-directed: no personalised ads
+    const sc = document.createElement('script');
+    sc.async = true;
+    sc.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ADSENSE_CLIENT;
+    sc.crossOrigin = 'anonymous';
+    sc.setAttribute('data-ad-frequency-hint', '120s');   // at most one ad every 2 minutes
+    document.head.appendChild(sc);
+    adBreak = o => window.adsbygoogle.push(o);
+    window.adsbygoogle.push({ preloadAdBreaks: 'on', sound: 'on' });
+  }catch(e){ adBreak = null; }
+}
+function maybeShowInterstitial(onDone){
+  if(WEB_ADS && adBreak){
+    let done = false; const finish = ()=>{ if(done) return; done = true; MUSIC.duck(false); onDone(); };
+    try{
+      adBreak({ type:'next', name:'mola',
+        beforeAd: ()=> MUSIC.duck(true),
+        afterAd:  ()=> MUSIC.duck(false),
+        adBreakDone: finish });
+      setTimeout(finish, 45000);   // safety: never block the game
       return;
-    }
-  }catch(e){}
-  onDone(); // browser / Claude demo: no native ad SDK present, just continue
+    }catch(e){}
+  }
+  onDone(); // Android app & no ads configured: just continue
 }
 
 /* ============================================================
    AD / LEARNING BREAK
 ============================================================ */
 function renderAdBreak(onDone, context){
-  maybeShowInterstitial(()=> renderLearningBreakCard(onDone));
+  renderLearningBreakCard(()=> maybeShowInterstitial(onDone));
 }
 function renderLearningBreakCard(onDone){
   const [emoji, texts] = pick(FACTS);
   const text = nameOf(texts);
   stage.innerHTML = `
-    <div class="screen">
+    <div class="screen top">
+      ${topNav()}
       <div class="ad-card">
         <div class="ad-chip">${t('adChip')}</div>
         <div class="fact-emoji">${emoji}</div>
@@ -1563,7 +1656,8 @@ function renderLearningBreakCard(onDone){
     if(secs<=0){ clearInterval(cd); btn.disabled=false; btn.textContent=t('adContinueGo'); }
     else{ btn.textContent = t('adContinueCd',{s:secs}); }
   }, 1000);
-  btn.onclick = ()=>{ if(!btn.disabled) onDone(); };
+  btn.onclick = ()=>{ if(!btn.disabled){ clearInterval(cd); onDone(); } };
+  wireBack(()=>{ clearInterval(cd); quiz=null; renderSectionGrid(); });
   if(document.getElementById('adPremium')) document.getElementById('adPremium').onclick = ()=>{
     const prevOnDone = onDone; stage.innerHTML = ''; renderPremiumThenReturn(prevOnDone);
   };
@@ -1826,7 +1920,8 @@ function renderCompLocalSetup(){
 function renderCompHandoff(){
   const p = comp[comp.turn];
   stage.innerHTML = `
-    <div class="screen">
+    <div class="screen top">
+      ${topNav()}
       <div class="handoff-card">
         <div class="ic">🤝</div>
         <h2>${t('handoffTitle',{name:p.name})}</h2>
@@ -1835,6 +1930,7 @@ function renderCompHandoff(){
       </div>
     </div>`;
   document.getElementById('ready').onclick = ()=>{ comp.timeLeft = RUN_TIME; comp.running = true; runCompQuestion(); };
+  wireBack(()=>{ clearInterval(comp.timerHandle); comp=null; renderCompHome(); });
 }
 function runCompQuestion(){
   const p = comp[comp.turn];
@@ -2052,6 +2148,12 @@ document.documentElement.lang = currentLang;
 document.documentElement.dir = LANG_META[currentLang].dir;
 if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged = ()=>{}; }
 restorePremiumFromPlay();
+/* Phone back key: go back inside the game instead of closing it */
+window.addEventListener('popstate', ()=>{
+  const ids = ['navBack','gateCancel','rateLater','rateCancel','rateClose','profCancel','toHub'];
+  const el = ids.map(id=>document.getElementById(id)).find(Boolean);
+  if(el){ try{ history.pushState({hd:1},''); }catch(e){} el.click(); }
+});
 createFloatingBg();
 renderIntro();
 if('serviceWorker' in navigator){
