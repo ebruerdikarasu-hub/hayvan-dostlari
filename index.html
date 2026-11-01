@@ -356,11 +356,11 @@ const STRINGS = {
     de:'Mit Premium:<br>🌐 Alle 5 Sprachen freigeschaltet<br>📚 Zugriff auf alle 11 Bereiche<br>🏆 Wettkampf für 2 Spieler<br>🧩 Schwierigere 8-Paar-Memory-Tafeln',
     nl:'Met Premium:<br>🌐 Alle 5 talen ontgrendeld<br>📚 Toegang tot alle 11 onderdelen<br>🏆 Wedstrijdmodus voor 2 spelers<br>🧩 Moeilijkere borden met 8 paren',
     ar:'مع النسخة المميزة:<br>🌐 فتح جميع اللغات الخمس<br>📚 الوصول لجميع الأقسام الأحد عشر<br>🏆 وضع مسابقة للاعبين<br>🧩 ألواح مطابقة أصعب بـ 8 أزواج'},
-  premiumScreenNote:{tr:'Ücretsiz sürümde Türkçe/İngilizce ve Hayvanlar, Renkler, Sayılar bölümleri açıktır.',
-    en:'The free version includes Turkish/English and the Animals, Colors, and Numbers sections.',
-    de:'Die kostenlose Version enthält Türkisch/Englisch sowie die Bereiche Tiere, Farben und Zahlen.',
-    nl:'De gratis versie bevat Turks/Engels en de onderdelen Dieren, Kleuren en Getallen.',
-    ar:'يتضمن الإصدار المجاني التركية/الإنجليزية وأقسام الحيوانات والألوان والأرقام.'},
+  premiumScreenNote:{tr:'Ücretsiz sürümde Türkçe dil ve Hayvanlar, Renkler, Sayılar bölümleri açıktır.',
+    en:'The free version includes Turkish and the Animals, Colors, and Numbers sections.',
+    de:'Die kostenlose Version enthält Türkisch sowie die Bereiche Tiere, Farben und Zahlen.',
+    nl:'De gratis versie bevat Turks en de onderdelen Dieren, Kleuren en Getallen.',
+    ar:'يتضمن الإصدار المجاني اللغة التركية وأقسام الحيوانات والألوان والأرقام.'},
   premiumOnBtn:{tr:'Premium Aktif ✅ (Kapat)',en:'Premium Active ✅ (Turn off)',de:'Premium aktiv ✅ (Ausschalten)',nl:'Premium actief ✅ (Uitzetten)',ar:'مميز نشط ✅ (إيقاف)'},
   premiumOffBtn:{tr:'👑 Premium\'a Geç',en:'👑 Upgrade to Premium',de:'👑 Premium holen',nl:'👑 Upgrade naar Premium',ar:'👑 الترقية إلى المميز'},
 
@@ -845,7 +845,7 @@ const IS_TWA = (function(){
 const PLAY_LIVE = false;
 
 const FREE_SECTIONS = ['animals','colors','numbers'];
-const FREE_LANGS = ['tr','en'];
+const FREE_LANGS = ['tr'];
 /* ---- Google Play Billing for Trusted Web Activity (Digital Goods API + Payment Request API) ----
    Works only inside the Play Store build (verified TWA). In a normal browser it falls back gracefully. */
 const PREMIUM_SKU = 'premium_unlock';
