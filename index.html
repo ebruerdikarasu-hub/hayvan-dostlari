@@ -364,6 +364,14 @@ const STRINGS = {
   premiumOnBtn:{tr:'Premium Aktif ✅ (Kapat)',en:'Premium Active ✅ (Turn off)',de:'Premium aktiv ✅ (Ausschalten)',nl:'Premium actief ✅ (Uitzetten)',ar:'مميز نشط ✅ (إيقاف)'},
   premiumOffBtn:{tr:'👑 Premium\'a Geç',en:'👑 Upgrade to Premium',de:'👑 Premium holen',nl:'👑 Upgrade naar Premium',ar:'👑 الترقية إلى المميز'},
 
+  webPremiumSoon:{tr:'📱 Tüm 11 bölüm ve 5 dil çok yakında Google Play\'deki Hayvan Dostları uygulamasında! Şimdilik ücretsiz bölümlerle oynayabilirsin.',en:'📱 All 11 sections and 5 languages are coming soon in the Animal Friends app on Google Play! For now, enjoy the free sections.',de:'📱 Alle 11 Bereiche und 5 Sprachen gibt es bald in der Tierfreunde-App auf Google Play! Bis dahin kannst du die kostenlosen Bereiche spielen.',nl:'📱 Alle 11 onderdelen en 5 talen komen binnenkort in de Dierenvrienden-app op Google Play! Speel tot die tijd de gratis onderdelen.',ar:'📱 جميع الأقسام الـ11 واللغات الخمس قريبًا في تطبيق أصدقاء الحيوانات على Google Play! العب الأقسام المجانية الآن.'},
+  webPremiumPlay:{tr:'📱 Tüm 11 bölüm ve 5 dil için Hayvan Dostları uygulamasını Google Play\'den indir. Premium tek seferlik ödemedir.',en:'📱 Get the Animal Friends app on Google Play for all 11 sections and 5 languages. Premium is a one-time purchase.',de:'📱 Hol dir die Tierfreunde-App auf Google Play für alle 11 Bereiche und 5 Sprachen. Premium ist ein Einmalkauf.',nl:'📱 Download de Dierenvrienden-app op Google Play voor alle 11 onderdelen en 5 talen. Premium is een eenmalige aankoop.',ar:'📱 حمّل تطبيق أصدقاء الحيوانات من Google Play لجميع الأقسام الـ11 واللغات الخمس. الباقة المميزة دفعة واحدة.'},
+  webPremiumBtn:{tr:'▶️ Google Play\'de aç',en:'▶️ Open Google Play',de:'▶️ Google Play öffnen',nl:'▶️ Open Google Play',ar:'▶️ افتح Google Play'},
+  profTitle:{tr:'Adını ve hayvanını seç',en:'Pick your name and animal',de:'Wähle deinen Namen und dein Tier',nl:'Kies je naam en je dier',ar:'اختر اسمك وحيوانك'},
+  profNamePh:{tr:'Adın (isteğe bağlı)',en:'Your name (optional)',de:'Dein Name (optional)',nl:'Je naam (optioneel)',ar:'اسمك (اختياري)'},
+  profSave:{tr:'Kaydet ✓',en:'Save ✓',de:'Speichern ✓',nl:'Opslaan ✓',ar:'حفظ ✓'},
+  profCancel:{tr:'Vazgeç',en:'Cancel',de:'Abbrechen',nl:'Annuleren',ar:'إلغاء'},
+  profEditBtn:{tr:'✏️ Adını yaz',en:'✏️ Add your name',de:'✏️ Name eintragen',nl:'✏️ Naam invullen',ar:'✏️ اكتب اسمك'},
   testerPremiumNote:{tr:'🧪 Test döneminde Premium ücretsiz açık. Teşekkürler!',en:'🧪 Premium is free during the test period. Thank you!',de:'🧪 Premium ist während der Testphase kostenlos. Danke!',nl:'🧪 Premium is gratis tijdens de testperiode. Bedankt!',ar:'🧪 الباقة المميزة مجانية خلال فترة الاختبار. شكرًا!'},
   gateTitle:{tr:'👨‍👩‍👧 Bu Bölüm Büyükler İçin',en:'👨‍👩‍👧 This Part Is for Grown-Ups',de:'👨‍👩‍👧 Dieser Teil ist für Erwachsene',nl:'👨‍👩‍👧 Dit gedeelte is voor volwassenen',ar:'👨‍👩‍👧 هذا الجزء للكبار'},
   gateBody:{tr:'Devam etmeden önce şu soruyu çöz:',en:'Please solve this before continuing:',de:'Bitte löse das, bevor du weitermachst:',nl:'Los dit eerst op voordat je verdergaat:',ar:'الرجاء حل هذا قبل المتابعة:'},
@@ -825,6 +833,16 @@ const STORE_SAFE_MODE = true;
 /* 🧪 TEST DÖNEMİ: Premium herkese ücretsiz açık (kapalı test kullanıcıları için).
    ⚠️ Uygulama üretime (herkese açık yayına) geçmeden ÖNCE bunu false yapın! */
 const TESTER_FREE_PREMIUM = true;
+/* Web vs Android app: the free test Premium applies ONLY inside the Play Store app (TWA).
+   Web visitors (website / Meta ads) get the free sections; Premium points them to Google Play. */
+const IS_TWA = (function(){
+  try{
+    if((document.referrer||'').indexOf('android-app://com.ebruerdikarasu.hayvandostlariapp')===0) sessionStorage.setItem('hd_twa','1');
+    return sessionStorage.getItem('hd_twa')==='1' || ('getDigitalGoodsService' in window);
+  }catch(e){ return (document.referrer||'').indexOf('android-app://')===0 || ('getDigitalGoodsService' in window); }
+})();
+/* ⚠️ Uygulama Google Play'de herkese açık yayına girince true yapın: web'deki Premium ekranı Play Store'a yönlendirir. */
+const PLAY_LIVE = false;
 
 const FREE_SECTIONS = ['animals','colors','numbers'];
 const FREE_LANGS = ['tr','en'];
@@ -869,7 +887,7 @@ async function restorePremiumFromPlay(){
 }
 
 const store = {
-  get premium(){ if(TESTER_FREE_PREMIUM) return true; try{ return localStorage.getItem('hd_premium')==='1'; }catch(e){ return false; } },
+  get premium(){ if(TESTER_FREE_PREMIUM && IS_TWA) return true; try{ return localStorage.getItem('hd_premium')==='1'; }catch(e){ return false; } },
   set premium(v){ try{ localStorage.setItem('hd_premium', v?'1':'0'); }catch(e){} },
   get soundOn(){ try{ const v = localStorage.getItem('hd_sound'); return v===null ? true : v==='1'; }catch(e){ return true; } },
   set soundOn(v){ try{ localStorage.setItem('hd_sound', v?'1':'0'); }catch(e){} }
@@ -1123,10 +1141,41 @@ function renderIntro(){
 /* ============================================================
    AUTH GATE
 ============================================================ */
+/* No sign-up / no PIN: a child taps "Hadi Başlayalım" and plays right away.
+   A name and avatar can be added later from the hub (✏️). */
 function renderAuthGate(){
   const raw = profileStore.load();
-  profile = raw ? ensureProfileShape(raw) : null;
-  if(profile && profile.username && profile.pin){ renderLogin(); } else { renderRegister(); }
+  profile = ensureProfileShape(raw || {username:'', avatar:'🦊', createdAt:Date.now()});
+  if(!raw) profileStore.save(profile);
+  renderHub();
+}
+function renderProfileEdit(){
+  let av = profile.avatar || '🦊';
+  stage.innerHTML = `
+    <div class="screen">
+      <div class="card">
+        <div class="big-avatar wiggle" id="avPreview">${av}</div>
+        <h2 style="margin-bottom:10px;">${t('profTitle')}</h2>
+        <div class="avatar-grid" id="avGrid">
+          ${AVATARS.map(a=>`<div class="avatar-opt ${a===av?'sel':''}" data-a="${a}">${a}</div>`).join('')}
+        </div>
+        <input class="input-big" id="profName" placeholder="${t('profNamePh')}" maxlength="12" value="${(profile.username||'').replace(/"/g,'&quot;')}">
+        <div class="btn-stack" style="margin-top:14px;">
+          <button class="big-btn green" id="profSave">${t('profSave')}</button>
+          <button class="ghost-btn" id="profCancel">${t('profCancel')}</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('avGrid').querySelectorAll('.avatar-opt').forEach(el=>{
+    el.onclick = ()=>{ av = el.dataset.a; document.getElementById('avPreview').textContent = av;
+      document.querySelectorAll('.avatar-opt').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); };
+  });
+  document.getElementById('profSave').onclick = ()=>{
+    profile.username = document.getElementById('profName').value.trim().slice(0,12);
+    profile.avatar = av; profileStore.save(profile);
+    playDing(); renderHub();
+  };
+  document.getElementById('profCancel').onclick = renderHub;
 }
 let pendingAvatar = AVATARS[0];
 let pendingPin = '';
@@ -1251,7 +1300,7 @@ function renderHub(){
     <div class="screen top">
       ${langRow(true)}
       <div class="hub-header">
-        <div class="hub-title">${greetAvatar} ${t('hubHello')}${greetName?', '+greetName:''}!</div>
+        <div class="hub-title" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">${greetAvatar} ${t('hubHello')}${greetName?', '+greetName:''}! <button class="badge" id="editProf" style="border:none;cursor:pointer;font-size:13px;">${greetName?'✏️':t('profEditBtn')}</button></div>
         <div style="display:flex;align-items:center;gap:8px;">
           <button class="badge" id="soundToggle" style="border:none;cursor:pointer;">${store.soundOn?'🔊':'🔇'}</button>
           <div class="badge ${prem?'premium-badge':''}">${prem?t('premiumOn'):t('premiumOff')}</div>
@@ -1281,6 +1330,7 @@ function renderHub(){
     </div>`;
   wireLangRow(renderHub);
   document.getElementById('soundToggle').onclick = ()=>{ store.soundOn = !store.soundOn; renderHub(); };
+  document.getElementById('editProf').onclick = renderProfileEdit;
   document.getElementById('tileSections').onclick = renderSectionGrid;
   document.getElementById('tileMatch').onclick = renderMatchSectionPicker;
   document.getElementById('tileComp').onclick = ()=>{ if(!store.premium){ renderPremium(renderHub); } else { renderCompHome(); } };
@@ -1346,7 +1396,9 @@ function renderPremium(returnFn){
         <p id="premMsg" style="color:var(--coral-dark);font-weight:700;min-height:20px;"></p>
         ${prem
           ? `<div class="badge premium-badge" style="display:block;margin-bottom:10px;">${t('premiumOn')} ✅</div>${TESTER_FREE_PREMIUM?`<p style="color:var(--ink-soft);margin-top:8px;">${t('testerPremiumNote')}</p>`:''}`
-          : `<button class="big-btn purple" id="buyPrem">${t('premiumOffBtn')}</button>`}
+          : (IS_TWA
+              ? `<button class="big-btn purple" id="buyPrem">${t('premiumOffBtn')}</button>`
+              : `<p style="font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:12px;">${PLAY_LIVE?t('webPremiumPlay'):t('webPremiumSoon')}</p>${PLAY_LIVE?`<button class="big-btn purple" id="openPlay">${t('webPremiumBtn')}</button>`:''}`)}
         ${(!STORE_SAFE_MODE && !prem) ? `<div style="margin-top:14px;"><button class="ghost-btn" id="devTogglePrem">🧪 Demo: Premium'u Aç (yalnızca test)</button></div>` : ''}
       </div>
     </div>`;
@@ -1370,6 +1422,8 @@ function renderPremium(returnFn){
       ()=> renderPremium(returnFn)
     );
   };
+  const playBtn = document.getElementById('openPlay');
+  if(playBtn) playBtn.onclick = ()=> renderParentalGate(()=>{ window.open('https://play.google.com/store/apps/details?id=com.ebruerdikarasu.hayvandostlariapp','_blank'); renderPremium(returnFn); }, ()=> renderPremium(returnFn));
   const devBtn = document.getElementById('devTogglePrem');
   if(devBtn) devBtn.onclick = ()=>{ store.premium = true; playApplause(); burstConfetti(24); renderPremium(returnFn); };
 }
@@ -1546,7 +1600,7 @@ const rateStore = {
 /* Call when a game round ends; shows the prompt when it is time, otherwise just continues. */
 function afterGame(next){
   const games = rateStore.get('games',0)+1; rateStore.set('games',games);
-  const rated = rateStore.get('done',0), asks = rateStore.get('asks',0), nextAt = rateStore.get('nextAt',3);
+  const rated = rateStore.get('done',0), asks = rateStore.get('asks',0), nextAt = rateStore.get('nextAt',2);
   if(!rated && asks<3 && games>=nextAt){
     rateStore.set('asks',asks+1); rateStore.set('nextAt',games+4);
     renderRatingAsk(next);
