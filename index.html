@@ -122,7 +122,15 @@ html[dir="rtl"] .mode-tile{text-align:right;}
 .section-tile:nth-child(9){animation-delay:.34s}.section-tile:nth-child(10){animation-delay:.38s}
 @keyframes tilePop{from{opacity:0;transform:scale(.7) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 .section-tile:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,0.08);}
-.section-tile .ic{font-size:34px;display:block;margin-bottom:6px;}
+.section-tile .ic{font-size:34px;display:block;margin-bottom:8px;line-height:0;}
+.section-tile .ic svg{filter:drop-shadow(0 3px 2px rgba(0,0,0,.18));}
+.section-tile{position:relative;overflow:hidden;}
+.section-tile::before{content:"";position:absolute;left:8px;right:8px;top:6px;height:22px;border-radius:12px;background:rgba(255,255,255,.22);pointer-events:none;}
+.section-tile .nm{display:inline-block;background:#fff;color:#4A3426;padding:3px 12px;border-radius:999px;box-shadow:0 2px 0 rgba(0,0,0,.08);}
+.section-tile:nth-child(11){animation-delay:.42s}
+.hub-scene-wrap{width:100%;max-width:480px;margin:0 auto 14px;}
+.hub-scene{width:100%;height:auto;display:block;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06);}
+.mode-tile .ic svg{display:block;filter:drop-shadow(0 3px 2px rgba(0,0,0,.15));}
 .section-tile .nm{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;}
 
 .topbar{width:100%;max-width:480px;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 18px;}
@@ -330,11 +338,11 @@ const STRINGS = {
   premiumBannerText:{tr:'👑 Tüm bölümleri ve dilleri aç',en:'👑 Unlock all sections and languages',de:'👑 Alle Bereiche und Sprachen freischalten',nl:'👑 Ontgrendel alle onderdelen en talen',ar:'👑 افتح جميع الأقسام واللغات'},
   premiumBtn:{tr:'Premium',en:'Premium',de:'Premium',nl:'Premium',ar:'مميز'},
   tileSectionsTitle:{tr:'Bölümler',en:'Sections',de:'Bereiche',nl:'Onderdelen',ar:'الأقسام'},
-  tileSectionsDesc:{tr:'10 farklı konuda sorular: hayvanlar, gezegenler, meslekler ve daha fazlası',
-    en:'Questions on 10 topics: animals, planets, jobs and more',
-    de:'Fragen zu 10 Themen: Tiere, Planeten, Berufe und mehr',
-    nl:'Vragen over 10 onderwerpen: dieren, planeten, beroepen en meer',
-    ar:'أسئلة في 10 مواضيع: الحيوانات، الكواكب، المهن والمزيد'},
+  tileSectionsDesc:{tr:'11 farklı konuda sorular: hayvanlar, gezegenler, İngilizce ve daha fazlası',
+    en:'Questions on 11 topics: animals, planets, English and more',
+    de:'Fragen zu 11 Themen: Tiere, Planeten, Englisch und mehr',
+    nl:'Vragen over 11 onderwerpen: dieren, planeten, Engels en meer',
+    ar:'أسئلة في 11 موضوعًا: الحيوانات، الكواكب، الإنجليزية والمزيد'},
   tileMatchTitle:{tr:'Eşleştirme Oyunu',en:'Matching Game',de:'Memory-Spiel',nl:'Geheugenspel',ar:'لعبة المطابقة'},
   tileMatchDesc:{tr:'Kartları çevir, aynı çiftleri bul!',en:'Flip cards and find matching pairs!',de:'Karten umdrehen und Paare finden!',nl:'Draai kaarten om en vind paren!',ar:'اقلب البطاقات وابحث عن الأزواج المتطابقة!'},
   tileCompTitle:{tr:'Yarışma (2 Kişilik)',en:'Competition (2 Players)',de:'Wettkampf (2 Spieler)',nl:'Wedstrijd (2 spelers)',ar:'مسابقة (لاعبان)'},
@@ -343,11 +351,11 @@ const STRINGS = {
   tileBadgesDesc:{tr:'{n} / {m} rozet kazandın',en:'{n} / {m} badges earned',de:'{n} / {m} Abzeichen erhalten',nl:'{n} / {m} badges verdiend',ar:'{n} / {m} وسام مكتسب'},
 
   premiumScreenTitle:{tr:'Premium Paket',en:'Premium Package',de:'Premium-Paket',nl:'Premiumpakket',ar:'الباقة المميزة'},
-  premiumScreenBody:{tr:'Premium ile:<br>🌐 Tüm 5 dilin kilidi açılır (İngilizce, Almanca, Hollandaca, Arapça)<br>📚 Tüm 10 bölüme erişim<br>🏆 2 Kişilik Yarışma modu<br>🧩 Eşleştirme oyununda daha zorlu 8 çiftli tahtalar',
-    en:'With Premium:<br>🌐 All 5 languages unlocked (English, German, Dutch, Arabic)<br>📚 Access to all 10 sections<br>🏆 2-Player Competition mode<br>🧩 Harder 8-pair matching boards',
-    de:'Mit Premium:<br>🌐 Alle 5 Sprachen freigeschaltet<br>📚 Zugriff auf alle 10 Bereiche<br>🏆 Wettkampf für 2 Spieler<br>🧩 Schwierigere 8-Paar-Memory-Tafeln',
-    nl:'Met Premium:<br>🌐 Alle 5 talen ontgrendeld<br>📚 Toegang tot alle 10 onderdelen<br>🏆 Wedstrijdmodus voor 2 spelers<br>🧩 Moeilijkere borden met 8 paren',
-    ar:'مع النسخة المميزة:<br>🌐 فتح جميع اللغات الخمس<br>📚 الوصول لجميع الأقسام العشرة<br>🏆 وضع مسابقة للاعبين<br>🧩 ألواح مطابقة أصعب بـ 8 أزواج'},
+  premiumScreenBody:{tr:'Premium ile:<br>🌐 Tüm 5 dilin kilidi açılır (İngilizce, Almanca, Hollandaca, Arapça)<br>📚 Tüm 11 bölüme (yeni: İngilizce!) erişim<br>🏆 2 Kişilik Yarışma modu<br>🧩 Eşleştirme oyununda daha zorlu 8 çiftli tahtalar',
+    en:'With Premium:<br>🌐 All 5 languages unlocked (English, German, Dutch, Arabic)<br>📚 Access to all 11 sections<br>🏆 2-Player Competition mode<br>🧩 Harder 8-pair matching boards',
+    de:'Mit Premium:<br>🌐 Alle 5 Sprachen freigeschaltet<br>📚 Zugriff auf alle 11 Bereiche<br>🏆 Wettkampf für 2 Spieler<br>🧩 Schwierigere 8-Paar-Memory-Tafeln',
+    nl:'Met Premium:<br>🌐 Alle 5 talen ontgrendeld<br>📚 Toegang tot alle 11 onderdelen<br>🏆 Wedstrijdmodus voor 2 spelers<br>🧩 Moeilijkere borden met 8 paren',
+    ar:'مع النسخة المميزة:<br>🌐 فتح جميع اللغات الخمس<br>📚 الوصول لجميع الأقسام الأحد عشر<br>🏆 وضع مسابقة للاعبين<br>🧩 ألواح مطابقة أصعب بـ 8 أزواج'},
   premiumScreenNote:{tr:'Ücretsiz sürümde Türkçe/İngilizce ve Hayvanlar, Renkler, Sayılar bölümleri açıktır.',
     en:'The free version includes Turkish/English and the Animals, Colors, and Numbers sections.',
     de:'Die kostenlose Version enthält Türkisch/Englisch sowie die Bereiche Tiere, Farben und Zahlen.',
@@ -356,6 +364,7 @@ const STRINGS = {
   premiumOnBtn:{tr:'Premium Aktif ✅ (Kapat)',en:'Premium Active ✅ (Turn off)',de:'Premium aktiv ✅ (Ausschalten)',nl:'Premium actief ✅ (Uitzetten)',ar:'مميز نشط ✅ (إيقاف)'},
   premiumOffBtn:{tr:'👑 Premium\'a Geç',en:'👑 Upgrade to Premium',de:'👑 Premium holen',nl:'👑 Upgrade naar Premium',ar:'👑 الترقية إلى المميز'},
 
+  testerPremiumNote:{tr:'🧪 Test döneminde Premium ücretsiz açık. Teşekkürler!',en:'🧪 Premium is free during the test period. Thank you!',de:'🧪 Premium ist während der Testphase kostenlos. Danke!',nl:'🧪 Premium is gratis tijdens de testperiode. Bedankt!',ar:'🧪 الباقة المميزة مجانية خلال فترة الاختبار. شكرًا!'},
   gateTitle:{tr:'👨‍👩‍👧 Bu Bölüm Büyükler İçin',en:'👨‍👩‍👧 This Part Is for Grown-Ups',de:'👨‍👩‍👧 Dieser Teil ist für Erwachsene',nl:'👨‍👩‍👧 Dit gedeelte is voor volwassenen',ar:'👨‍👩‍👧 هذا الجزء للكبار'},
   gateBody:{tr:'Devam etmeden önce şu soruyu çöz:',en:'Please solve this before continuing:',de:'Bitte löse das, bevor du weitermachst:',nl:'Los dit eerst op voordat je verdergaat:',ar:'الرجاء حل هذا قبل المتابعة:'},
   gateWrong:{tr:'Bu senin için değil 😊 Bir yetişkinden yardım iste.',en:'This part isn\'t for you 😊 Ask a grown-up for help.',de:'Das ist nichts für dich 😊 Bitte einen Erwachsenen um Hilfe.',nl:'Dit is niets voor jou 😊 Vraag een volwassene om hulp.',ar:'هذا ليس لك 😊 اطلب المساعدة من أحد الكبار.'},
@@ -456,9 +465,85 @@ const SECTIONS_DATA = [
   {id:'food', icon:'🍎', color:'#E85B5B', name:{tr:'Meyve&Sebze',en:'Fruits&Veg',de:'Obst&Gemüse',nl:'Fruit&Groente',ar:'فواكه وخضار'}},
   {id:'vehicles', icon:'🚗', color:'#7A8FE0', name:{tr:'Taşıtlar',en:'Vehicles',de:'Fahrzeuge',nl:'Voertuigen',ar:'المركبات'}},
   {id:'weather', icon:'🌤️', color:'#4FA8CB', name:{tr:'Hava&Mevsim',en:'Weather',de:'Wetter',nl:'Weer',ar:'الطقس'}},
-  {id:'body', icon:'🧠', color:'#C97BD1', name:{tr:'Vücudumuz',en:'Our Body',de:'Unser Körper',nl:'Ons Lichaam',ar:'جسمنا'}}
+  {id:'body', icon:'🧠', color:'#C97BD1', name:{tr:'Vücudumuz',en:'Our Body',de:'Unser Körper',nl:'Ons Lichaam',ar:'جسمنا'}},
+  {id:'english', icon:'🔤', color:'#3DA5F5', name:{tr:'İngilizce',en:'English',de:'Englisch',nl:'Engels',ar:'الإنجليزية'}}
 ];
 const secById = id => SECTIONS_DATA.find(s=>s.id===id);
+
+
+/* ---- ENGLISH section: alphabet, first words, numbers, colors (answers in English, spoken with an English voice) ---- */
+const EN_ALPHABET = [
+  ["A","Apple","🍎"],["B","Ball","⚽"],["C","Cat","🐱"],["D","Dog","🐶"],["E","Egg","🥚"],["F","Fish","🐟"],
+  ["G","Grapes","🍇"],["H","Hat","🎩"],["I","Ice cream","🍦"],["J","Juice","🧃"],["K","Key","🔑"],["L","Lion","🦁"],
+  ["M","Moon","🌙"],["N","Nose","👃"],["O","Orange","🍊"],["P","Pizza","🍕"],["Q","Queen","👸"],["R","Rabbit","🐰"],
+  ["S","Sun","☀️"],["T","Tree","🌳"],["U","Umbrella","☂️"],["V","Violin","🎻"],["W","Whale","🐳"],["Y","Yellow","🟡"],["Z","Zebra","🦓"]
+];
+const EN_WORDS = [
+  ["🐶","Dog"],["🐱","Cat"],["🐟","Fish"],["🐦","Bird"],["🐄","Cow"],["🐴","Horse"],["🦁","Lion"],["🐘","Elephant"],["🐰","Rabbit"],["🐻","Bear"],
+  ["🍎","Apple"],["🍌","Banana"],["🥕","Carrot"],["🍇","Grapes"],["🍓","Strawberry"],["🥛","Milk"],["🍞","Bread"],["🥚","Egg"],
+  ["🚗","Car"],["🚌","Bus"],["✈️","Airplane"],["🚲","Bicycle"],["🚂","Train"],["🚢","Ship"],
+  ["🏠","House"],["🌳","Tree"],["☀️","Sun"],["🌙","Moon"],["⭐","Star"],["🌧️","Rain"],["❄️","Snow"],
+  ["📚","Book"],["✏️","Pencil"],["⚽","Ball"],["🎈","Balloon"],["👟","Shoes"],["🎩","Hat"],
+  ["👀","Eyes"],["👂","Ear"],["👃","Nose"],["🖐️","Hand"],["🦶","Foot"]
+];
+const EN_NUMBERS = ["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten"];
+const EN_COLORS = [["🔴","Red"],["🟠","Orange"],["🟡","Yellow"],["🟢","Green"],["🔵","Blue"],["🟣","Purple"],["⚪","White"],["⚫","Black"],["🟤","Brown"],["🩷","Pink"]];
+const EN_Q = {
+  letter:{tr:"“{w}” hangi harfle başlar?",en:"Which letter does “{w}” start with?",de:"Mit welchem Buchstaben beginnt „{w}“?",nl:"Met welke letter begint „{w}”?",ar:"بأي حرف تبدأ كلمة «{w}»؟"},
+  word:{tr:"Bunun İngilizcesi nedir?",en:"What is this in English?",de:"Wie heißt das auf Englisch?",nl:"Hoe heet dit in het Engels?",ar:"ما اسم هذا بالإنجليزية؟"},
+  numWord:{tr:"{n} sayısı İngilizcede nasıl söylenir?",en:"How do you say {n} in English?",de:"Wie sagt man {n} auf Englisch?",nl:"Hoe zeg je {n} in het Engels?",ar:"كيف نقول {n} بالإنجليزية؟"},
+  wordNum:{tr:"“{w}” kaç demektir?",en:"Which number is “{w}”?",de:"Welche Zahl ist „{w}“?",nl:"Welk getal is „{w}”?",ar:"ما الرقم «{w}»؟"},
+  color:{tr:"Bu renk İngilizcede nedir?",en:"What is this color in English?",de:"Wie heißt diese Farbe auf Englisch?",nl:"Hoe heet deze kleur in het Engels?",ar:"ما اسم هذا اللون بالإنجليزية؟"}
+};
+function enQ(k){ return EN_Q[k][currentLang] || EN_Q[k].en; }
+function threeFrom(list, i, keyFn){
+  const key = keyFn(list[i]);
+  return shuffle(list.map((_,k)=>k).filter(k=>k!==i && keyFn(list[k])!==key)).slice(0,2);
+}
+function buildEnglishPairs(){
+  const out = [];
+  EN_ALPHABET.forEach((_,i)=> out.push(['letter',i]));
+  EN_WORDS.forEach((_,i)=> out.push(['word',i]));
+  EN_NUMBERS.forEach((_,i)=>{ out.push(['numWord',i]); out.push(['wordNum',i]); });
+  EN_COLORS.forEach((_,i)=> out.push(['color',i]));
+  return out;
+}
+function buildEnglishQuestion(pair){
+  const [type, i] = pair;
+  if(type==='letter'){
+    const [L, w, e] = EN_ALPHABET[i];
+    const o = threeFrom(EN_ALPHABET, i, x=>x[0]);
+    const opts = shuffle([{t:L,e:'🔤',c:true}].concat(o.map(k=>({t:EN_ALPHABET[k][0],e:'🔤',c:false}))));
+    return {emoji:e, q:enQ('letter').split('{w}').join(w), answers:opts, sayEn:w};
+  }
+  if(type==='word' || type==='color'){
+    const list = type==='word' ? EN_WORDS : EN_COLORS;
+    const [e, w] = list[i];
+    const o = threeFrom(list, i, x=>x[1]);
+    const opts = shuffle([{t:w,e:e,c:true}].concat(o.map(k=>({t:list[k][1],e:list[k][0],c:false}))));
+    return {emoji:e, q:enQ(type), answers:opts, enAnswers:true};
+  }
+  if(type==='numWord'){
+    const o = threeFrom(EN_NUMBERS, i, x=>x);
+    const opts = shuffle([{t:EN_NUMBERS[i],e:'🔢',c:true}].concat(o.map(k=>({t:EN_NUMBERS[k],e:'🔢',c:false}))));
+    return {emoji:String(i+1), q:enQ('numWord').split('{n}').join(String(i+1)), answers:opts, enAnswers:true, big:true};
+  }
+  // wordNum
+  const o = threeFrom(EN_NUMBERS, i, x=>x);
+  const opts = shuffle([{t:String(i+1),e:'🔢',c:true}].concat(o.map(k=>({t:String(k+1),e:'🔢',c:false}))));
+  return {emoji:'🔢', q:enQ('wordNum').split('{w}').join(EN_NUMBERS[i]), answers:opts, sayEn:EN_NUMBERS[i]};
+}
+/* Speak an English word with an English voice (queued after the question). */
+function speakEnglish(text){
+  if(!store.soundOn) return;
+  try{
+    if(!('speechSynthesis' in window) || !text) return;
+    const u=new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=0.85; u.pitch=1.2;
+    const vv = window.speechSynthesis.getVoices().find(v=>v.lang && v.lang.toLowerCase().startsWith('en'));
+    if(vv) u.voice=vv;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
 
 /* [emoji, {tr,en,de,nl,ar}] name lists — used for matching game AND templated quiz generation */
 const MATCH_DATA = {
@@ -514,6 +599,7 @@ const MATCH_DATA = {
     ["🦷",{tr:"Diş",en:"Tooth",de:"Zahn",nl:"Tand",ar:"سن"}],["🖐️",{tr:"El",en:"Hand",de:"Hand",nl:"Hand",ar:"يد"}],
     ["🦶",{tr:"Ayak",en:"Foot",de:"Fuß",nl:"Voet",ar:"قدم"}],["💇",{tr:"Saç",en:"Hair",de:"Haar",nl:"Haar",ar:"شعر"}]]
 };
+MATCH_DATA.english = [0,1,4,8,10,11,18,19,25,26,33,35].map(i=>{ const [e,w]=EN_WORDS[i]; return [e,{tr:w,en:w,de:w,nl:w,ar:w}]; });
 function getMatchItems(sectionId, lang){ return MATCH_DATA[sectionId].map(([e,n])=>[e, n[lang]||n.en]); }
 
 const TEMPLATE_Q = {
@@ -550,6 +636,124 @@ const NUMBERS_Q_DATA = [
   ["✋",["5","4","6"],{tr:{q:"Bir elin kaç parmağı vardır?",a:["5","4","6"]},en:{q:"How many fingers does one hand have?",a:["5","4","6"]},de:{q:"Wie viele Finger hat eine Hand?",a:["5","4","6"]},nl:{q:"Hoeveel vingers heeft één hand?",a:["5","4","6"]},ar:{q:"كم عدد أصابع اليد الواحدة؟",a:["5","4","6"]}}],
   ["🙌",["10","8","12"],{tr:{q:"İki elin toplam kaç parmağı vardır?",a:["10","8","12"]},en:{q:"How many fingers do two hands have in total?",a:["10","8","12"]},de:{q:"Wie viele Finger haben zwei Hände insgesamt?",a:["10","8","12"]},nl:{q:"Hoeveel vingers hebben twee handen samen?",a:["10","8","12"]},ar:{q:"كم عدد أصابع اليدين معًا؟",a:["10","8","12"]}}]
 ];
+
+
+/* ---- Extended animal facts: every animal gets its own questions (name, sound, home, food, legs) ----
+   [emoji, names{5}, sound{5}|null, habitatKey|null, foodKey|null, legs|null] */
+const ANIMAL_FACTS = [
+  ["🐶",{tr:"Köpek",en:"Dog",de:"Hund",nl:"Hond",ar:"كلب"},{tr:"Hav hav",en:"Woof woof",de:"Wau wau",nl:"Woef woef",ar:"هاو هاو"},"home",null,4],
+  ["🐱",{tr:"Kedi",en:"Cat",de:"Katze",nl:"Kat",ar:"قطة"},{tr:"Miyav",en:"Meow",de:"Miau",nl:"Miauw",ar:"مياو"},"home",null,4],
+  ["🐄",{tr:"İnek",en:"Cow",de:"Kuh",nl:"Koe",ar:"بقرة"},{tr:"Möö",en:"Moo",de:"Muh",nl:"Boe",ar:"موو"},"farm","grass",4],
+  ["🐑",{tr:"Koyun",en:"Sheep",de:"Schaf",nl:"Schaap",ar:"خروف"},{tr:"Mee",en:"Baa",de:"Mäh",nl:"Bèè",ar:"ماء ماء"},"farm","grass",4],
+  ["🐔",{tr:"Tavuk",en:"Chicken",de:"Huhn",nl:"Kip",ar:"دجاجة"},{tr:"Gıt gıdak",en:"Cluck cluck",de:"Gack gack",nl:"Tok tok",ar:"كاك كاك"},"farm","seeds",2],
+  ["🦆",{tr:"Ördek",en:"Duck",de:"Ente",nl:"Eend",ar:"بطة"},{tr:"Vak vak",en:"Quack quack",de:"Quak quak",nl:"Kwak kwak",ar:"كواك كواك"},"pond",null,2],
+  ["🐴",{tr:"At",en:"Horse",de:"Pferd",nl:"Paard",ar:"حصان"},{tr:"İhaha",en:"Neigh",de:"Wieher",nl:"Hihihi",ar:"هيييه"},"farm","grass",4],
+  ["🦁",{tr:"Aslan",en:"Lion",de:"Löwe",nl:"Leeuw",ar:"أسد"},{tr:"Grrraaaa",en:"Roar",de:"Brüll",nl:"Brul",ar:"زئير"},"africa","meat",4],
+  ["🐘",{tr:"Fil",en:"Elephant",de:"Elefant",nl:"Olifant",ar:"فيل"},null,"africa","grass",4],
+  ["🦒",{tr:"Zürafa",en:"Giraffe",de:"Giraffe",nl:"Giraf",ar:"زرافة"},null,"africa","leaves",4],
+  ["🦓",{tr:"Zebra",en:"Zebra",de:"Zebra",nl:"Zebra",ar:"حمار وحشي"},null,"africa","grass",4],
+  ["🐒",{tr:"Maymun",en:"Monkey",de:"Affe",nl:"Aap",ar:"قرد"},{tr:"U u a a",en:"Ooh ooh aah",de:"Uh uh ah",nl:"Oe oe aa",ar:"أو أو آ"},"forest","banana",null],
+  ["🐼",{tr:"Panda",en:"Panda",de:"Panda",nl:"Panda",ar:"باندا"},null,"forest","bamboo",4],
+  ["🐻",{tr:"Ayı",en:"Bear",de:"Bär",nl:"Beer",ar:"دب"},null,"forest",null,4],
+  ["🦊",{tr:"Tilki",en:"Fox",de:"Fuchs",nl:"Vos",ar:"ثعلب"},null,"forest",null,4],
+  ["🐿️",{tr:"Sincap",en:"Squirrel",de:"Eichhörnchen",nl:"Eekhoorn",ar:"سنجاب"},null,"forest","nuts",4],
+  ["🦉",{tr:"Baykuş",en:"Owl",de:"Eule",nl:"Uil",ar:"بومة"},{tr:"Hu hu",en:"Hoot hoot",de:"Schuhu",nl:"Oehoe",ar:"هو هو"},"forest",null,2],
+  ["🐰",{tr:"Tavşan",en:"Rabbit",de:"Hase",nl:"Konijn",ar:"أرنب"},null,"forest","carrot",4],
+  ["🐸",{tr:"Kurbağa",en:"Frog",de:"Frosch",nl:"Kikker",ar:"ضفدع"},{tr:"Vırak vırak",en:"Ribbit",de:"Quak quak",nl:"Kwaak kwaak",ar:"نق نق"},"pond","insects",4],
+  ["🐟",{tr:"Balık",en:"Fish",de:"Fisch",nl:"Vis",ar:"سمكة"},null,"sea",null,0],
+  ["🐬",{tr:"Yunus",en:"Dolphin",de:"Delfin",nl:"Dolfijn",ar:"دلفين"},null,"sea","fish",0],
+  ["🐳",{tr:"Balina",en:"Whale",de:"Wal",nl:"Walvis",ar:"حوت"},null,"sea",null,0],
+  ["🐧",{tr:"Penguen",en:"Penguin",de:"Pinguin",nl:"Pinguïn",ar:"بطريق"},null,"polar","fish",2],
+  ["🐪",{tr:"Deve",en:"Camel",de:"Kamel",nl:"Kameel",ar:"جمل"},null,"desert",null,4],
+  ["🐝",{tr:"Arı",en:"Bee",de:"Biene",nl:"Bij",ar:"نحلة"},{tr:"Vızzz",en:"Buzz",de:"Summ",nl:"Zoem",ar:"زززز"},null,"nectar",6],
+  ["🦋",{tr:"Kelebek",en:"Butterfly",de:"Schmetterling",nl:"Vlinder",ar:"فراشة"},null,null,"nectar",6],
+  ["🕷️",{tr:"Örümcek",en:"Spider",de:"Spinne",nl:"Spin",ar:"عنكبوت"},null,null,"insects",8],
+  ["🐍",{tr:"Yılan",en:"Snake",de:"Schlange",nl:"Slang",ar:"ثعبان"},{tr:"Tısss",en:"Hiss",de:"Zisch",nl:"Sss",ar:"فحيح"},null,null,0],
+  ["🐦",{tr:"Kuş",en:"Bird",de:"Vogel",nl:"Vogel",ar:"طائر"},{tr:"Cik cik",en:"Tweet tweet",de:"Piep piep",nl:"Tjilp tjilp",ar:"زقزقة"},"forest","seeds",2],
+  ["🐢",{tr:"Kaplumbağa",en:"Turtle",de:"Schildkröte",nl:"Schildpad",ar:"سلحفاة"},null,"pond",null,4],
+  ["🐊",{tr:"Timsah",en:"Crocodile",de:"Krokodil",nl:"Krokodil",ar:"تمساح"},null,"pond","meat",4],
+  ["🦀",{tr:"Yengeç",en:"Crab",de:"Krabbe",nl:"Krab",ar:"سلطعون"},null,"sea",null,null]
+];
+const HABITATS = {
+  home:["🏠",{tr:"Evde",en:"At home",de:"Im Haus",nl:"In huis",ar:"في البيت"}],
+  farm:["🚜",{tr:"Çiftlikte",en:"On a farm",de:"Auf dem Bauernhof",nl:"Op de boerderij",ar:"في المزرعة"}],
+  forest:["🌳",{tr:"Ormanda",en:"In the forest",de:"Im Wald",nl:"In het bos",ar:"في الغابة"}],
+  sea:["🌊",{tr:"Denizde",en:"In the sea",de:"Im Meer",nl:"In de zee",ar:"في البحر"}],
+  pond:["💧",{tr:"Gölde",en:"In a pond",de:"Im Teich",nl:"In een vijver",ar:"في البركة"}],
+  africa:["🌍",{tr:"Afrika'da",en:"In Africa",de:"In Afrika",nl:"In Afrika",ar:"في أفريقيا"}],
+  polar:["🧊",{tr:"Buzullarda",en:"On the ice",de:"Im Eis",nl:"Op het ijs",ar:"في الجليد"}],
+  desert:["🏜️",{tr:"Çölde",en:"In the desert",de:"In der Wüste",nl:"In de woestijn",ar:"في الصحراء"}]
+};
+const FOODS = {
+  grass:["🌿",{tr:"Ot",en:"Grass",de:"Gras",nl:"Gras",ar:"عشب"}],
+  meat:["🍖",{tr:"Et",en:"Meat",de:"Fleisch",nl:"Vlees",ar:"لحم"}],
+  fish:["🐟",{tr:"Balık",en:"Fish",de:"Fisch",nl:"Vis",ar:"سمك"}],
+  bamboo:["🎋",{tr:"Bambu",en:"Bamboo",de:"Bambus",nl:"Bamboe",ar:"خيزران"}],
+  banana:["🍌",{tr:"Muz",en:"Bananas",de:"Bananen",nl:"Bananen",ar:"موز"}],
+  carrot:["🥕",{tr:"Havuç",en:"Carrots",de:"Karotten",nl:"Wortels",ar:"جزر"}],
+  nectar:["🌸",{tr:"Çiçek özü",en:"Flower nectar",de:"Blütennektar",nl:"Bloemnectar",ar:"رحيق الزهور"}],
+  nuts:["🌰",{tr:"Fındık ve palamut",en:"Nuts",de:"Nüsse",nl:"Noten",ar:"مكسرات"}],
+  insects:["🐛",{tr:"Böcek",en:"Insects",de:"Insekten",nl:"Insecten",ar:"حشرات"}],
+  seeds:["🌾",{tr:"Tohum",en:"Seeds",de:"Körner",nl:"Zaden",ar:"بذور"}],
+  honey:["🍯",{tr:"Bal",en:"Honey",de:"Honig",nl:"Honing",ar:"عسل"}],
+  leaves:["🍃",{tr:"Yaprak",en:"Leaves",de:"Blätter",nl:"Bladeren",ar:"أوراق"}]
+};
+/* wrong options that would actually also be true for that animal — never offered */
+const HAB_EXCL = {"🐶":["farm"],"🐱":["farm"],"🦆":["farm","sea"],"🐢":["sea"],"🐊":["africa"],"🐰":["farm"],"🐦":["home","farm"],
+  "🐧":["sea"],"🐬":["pond"],"🐳":["pond"],"🐟":["pond","home"],"🐒":["africa"],"🐘":["forest"],"🐪":["africa"],"🐸":["forest"],
+  "🦉":["farm"],"🦊":["farm"],"🦁":["forest"],"🦒":["forest"],"🦓":["forest"],"🦀":["pond"]};
+const FOOD_CAT = {grass:"plant",leaves:"plant",bamboo:"plant",carrot:"plant",banana:"plant",seeds:"plant",nuts:"plant",meat:"animal",fish:"animal",insects:"animal",honey:"sweet",nectar:"sweet"};
+const FOOD_EXCL = {"🐔":["insects"],"🐦":["insects"],"🐒":["insects","honey"],"🐿️":["insects"],"🐊":["fish"],"🐬":["meat"],"🐧":["meat"],"🐸":["nectar"]};
+const ANIMAL_TQ = {
+  name:{tr:"Bu hayvanın adı nedir?",en:"What is this animal called?",de:"Wie heißt dieses Tier?",nl:"Hoe heet dit dier?",ar:"ما اسم هذا الحيوان؟"},
+  sound:{tr:"Hangi hayvan “{s}” diye ses çıkarır?",en:"Which animal says “{s}”?",de:"Welches Tier macht „{s}“?",nl:"Welk dier zegt „{s}”?",ar:"أي حيوان يقول «{s}»؟"},
+  habitat:{tr:"Bu hayvan nerede yaşar?",en:"Where does this animal live?",de:"Wo lebt dieses Tier?",nl:"Waar woont dit dier?",ar:"أين يعيش هذا الحيوان؟"},
+  food:{tr:"Bu hayvan en çok ne yer?",en:"What does this animal like to eat?",de:"Was frisst dieses Tier am liebsten?",nl:"Wat eet dit dier het liefst?",ar:"ماذا يحب هذا الحيوان أن يأكل؟"},
+  legs:{tr:"Bu hayvanın kaç ayağı var?",en:"How many legs does this animal have?",de:"Wie viele Beine hat dieses Tier?",nl:"Hoeveel poten heeft dit dier?",ar:"كم عدد أرجل هذا الحيوان؟"}
+};
+function buildAnimalPairs(){
+  const out = [];
+  ANIMAL_FACTS.forEach((a,i)=>{
+    out.push([i,'name']);
+    if(a[2]) out.push([i,'sound']);
+    if(a[3]) out.push([i,'habitat']);
+    if(a[4]) out.push([i,'food']);
+    if(a[5]!==null) out.push([i,'legs']);
+  });
+  return out;
+}
+function otherAnimals(i, n, filter){
+  return shuffle(ANIMAL_FACTS.map((_,k)=>k).filter(k=>k!==i && (!filter || filter(ANIMAL_FACTS[k])))).slice(0,n);
+}
+function buildAnimalFactQuestion(pair){
+  const [i, type] = pair;
+  const a = ANIMAL_FACTS[i];
+  const [emoji, names, sound, hab, food, legs] = a;
+  const L = currentLang;
+  if(type==='name'){
+    const o = otherAnimals(i,2);
+    const opts = shuffle([{t:nameOf(names),e:emoji,c:true}].concat(o.map(k=>({t:nameOf(ANIMAL_FACTS[k][1]),e:ANIMAL_FACTS[k][0],c:false}))));
+    return {emoji, q:ANIMAL_TQ.name[L]||ANIMAL_TQ.name.en, answers:opts};
+  }
+  if(type==='sound'){
+    const s = nameOf(sound);
+    const o = otherAnimals(i,2,x=>!x[2] || nameOf(x[2])!==s);
+    const opts = shuffle([{t:nameOf(names),e:emoji,c:true}].concat(o.map(k=>({t:nameOf(ANIMAL_FACTS[k][1]),e:ANIMAL_FACTS[k][0],c:false}))));
+    return {emoji:'🔊', q:(ANIMAL_TQ.sound[L]||ANIMAL_TQ.sound.en).split('{s}').join(s), answers:opts};
+  }
+  if(type==='habitat' || type==='food'){
+    const dict = type==='habitat' ? HABITATS : FOODS;
+    const key = type==='habitat' ? hab : food;
+    const excl = (type==='habitat' ? HAB_EXCL[emoji] : FOOD_EXCL[emoji]) || [];
+    const others = shuffle(Object.keys(dict).filter(k=>k!==key && !excl.includes(k) && (type==='habitat' || FOOD_CAT[k]!==FOOD_CAT[key]))).slice(0,2);
+    const opts = shuffle([key].concat(others).map(k=>({t:nameOf(dict[k][1]),e:dict[k][0],c:k===key})));
+    return {emoji, q:ANIMAL_TQ[type][L]||ANIMAL_TQ[type].en, answers:opts};
+  }
+  // legs
+  const pool = shuffle([0,2,4,6,8].filter(v=>v!==legs)).slice(0,2);
+  const opts = shuffle([legs].concat(pool).map(v=>({t:String(v),e:'🦶',c:v===legs})));
+  return {emoji, q:ANIMAL_TQ.legs[L]||ANIMAL_TQ.legs.en, answers:opts};
+}
 
 const COUNT_ITEMS = [["🐥",{tr:"civciv",en:"chick",de:"Küken",nl:"kuiken",ar:"كتكوت"}],["🦋",{tr:"kelebek",en:"butterfly",de:"Schmetterling",nl:"vlinder",ar:"فراشة"}],
   ["🐝",{tr:"arı",en:"bee",de:"Biene",nl:"bij",ar:"نحلة"}],["🐟",{tr:"balık",en:"fish",de:"Fisch",nl:"vis",ar:"سمكة"}],
@@ -618,6 +822,10 @@ const AVATARS = ["🐶","🐱","🐰","🦁","🐼","🦊","🐨","🐯","🐸",
    Flip to false only for the interactive Claude-artifact demo if you want to show the concept. */
 const STORE_SAFE_MODE = true;
 
+/* 🧪 TEST DÖNEMİ: Premium herkese ücretsiz açık (kapalı test kullanıcıları için).
+   ⚠️ Uygulama üretime (herkese açık yayına) geçmeden ÖNCE bunu false yapın! */
+const TESTER_FREE_PREMIUM = true;
+
 const FREE_SECTIONS = ['animals','colors','numbers'];
 const FREE_LANGS = ['tr','en'];
 /* ---- Google Play Billing for Trusted Web Activity (Digital Goods API + Payment Request API) ----
@@ -661,7 +869,7 @@ async function restorePremiumFromPlay(){
 }
 
 const store = {
-  get premium(){ try{ return localStorage.getItem('hd_premium')==='1'; }catch(e){ return false; } },
+  get premium(){ if(TESTER_FREE_PREMIUM) return true; try{ return localStorage.getItem('hd_premium')==='1'; }catch(e){ return false; } },
   set premium(v){ try{ localStorage.setItem('hd_premium', v?'1':'0'); }catch(e){} },
   get soundOn(){ try{ const v = localStorage.getItem('hd_sound'); return v===null ? true : v==='1'; }catch(e){ return true; } },
   set soundOn(v){ try{ localStorage.setItem('hd_sound', v?'1':'0'); }catch(e){} }
@@ -814,6 +1022,8 @@ function genAddition(){
   const opts = shuffle([sum,wrongA,wrongB]).map(v=>({t:String(v), e:emoji, c:v===sum}));
   return {emoji:row, q:ADD_Q[currentLang].split('{name}').join(name), answers:opts, big:true};
 }
+/* Turkish question particle by vowel harmony: mı / mi / mu / mü */
+function trQ(w){ const v=(w.toLocaleLowerCase('tr').match(/[aıoueiöü]/g)||['e']).pop(); return ({a:'mı',ı:'mı',o:'mu',u:'mu',e:'mi',i:'mi',ö:'mü',ü:'mü'})[v]; }
 function genSizeCompare(){
   let i=randInt(0,SIZE_RANK.length-1), j=randInt(0,SIZE_RANK.length-1);
   while(j===i) j=randInt(0,SIZE_RANK.length-1);
@@ -825,7 +1035,8 @@ function genSizeCompare(){
     {t:nameB, e:B[0], c:B===bigger},
     {t:SIZE_EQUAL[currentLang], e:'⚖️', c:false}
   ]);
-  const qtext = SIZE_Q[currentLang].split('{A}').join(nameA).split('{B}').join(nameB);
+  let qtext = SIZE_Q[currentLang].split('{A}').join(nameA).split('{B}').join(nameB);
+  if(currentLang==='tr') qtext = `${nameA} ${trQ(nameA)}, ${nameB} ${trQ(nameB)} daha büyüktür?`;
   return {emoji:`${A[0]} ${B[0]}`, q:qtext, answers:opts};
 }
 function buildTemplatedQuestion(sectionId, idx){
@@ -845,6 +1056,7 @@ function makeQueue(sectionId){
   return {
     sectionId,
     pool: data ? shuffle(data) : null, ptr:0,
+    apool: sectionId==='animals' ? shuffle(buildAnimalPairs()) : sectionId==='english' ? shuffle(buildEnglishPairs()) : null, aptr:0,
     itemPool: itemIdxRange ? shuffle(itemIdxRange) : null, itemPtr:0
   };
 }
@@ -859,11 +1071,17 @@ function nextItemIdx(state){
 function nextQuestion(state){
   const r = Math.random();
   if(state.sectionId==='animals'){
-    if(r<0.15) return genSizeCompare();
-    if(r<0.30) return genCounting();
-    return buildFromCrafted(nextFromQueue(state, ANIMALS_Q_DATA));
+    if(r<0.08) return genSizeCompare();
+    if(r<0.15) return genCounting();
+    if(r<0.30) return buildFromCrafted(nextFromQueue(state, ANIMALS_Q_DATA));
+    if(state.aptr >= state.apool.length){ state.apool = shuffle(buildAnimalPairs()); state.aptr = 0; }
+    return buildAnimalFactQuestion(state.apool[state.aptr++]);
   }
   if(state.sectionId==='planets'){ return buildFromCrafted(nextFromQueue(state, PLANETS_Q_DATA)); }
+  if(state.sectionId==='english'){
+    if(state.aptr >= state.apool.length){ state.apool = shuffle(buildEnglishPairs()); state.aptr = 0; }
+    return buildEnglishQuestion(state.apool[state.aptr++]);
+  }
   if(state.sectionId==='numbers'){
     if(r<0.45) return genAddition();
     if(r<0.8) return genCounting();
@@ -890,7 +1108,7 @@ function renderIntro(){
     <div class="screen">
       ${langRow(false)}
       <div class="love-card sparkle-ring">
-        <div class="critters wiggle">🐶 🐱 🐰 🦁</div>
+        <div class="hub-scene-wrap" style="margin-bottom:12px;">${HUB_SCENE}</div>
         <h1>${t('appTitle')}</h1>
         <p>${t('introText')}</p>
         <button class="big-btn" id="startBtn">${t('startBtn')}</button>
@@ -1014,6 +1232,17 @@ function renderWelcome(isNew){
 function topNav(){ return `<div class="topnav"><button class="ghost-btn" id="navBack">⬅</button><div class="title"></div><div style="width:60px"></div></div>`; }
 function wireBack(fn){ const b=document.getElementById('navBack'); if(b) b.onclick=fn; }
 
+/* ---- Illustrated art (section tiles, hub scene, mode tiles) ---- */
+const ART_DEFS = "<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\"><defs>\n  <linearGradient id=\"hd-sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n    <stop offset=\"0\" stop-color=\"#7FD3FF\"/>\n    <stop offset=\"0.65\" stop-color=\"#C9EEFF\"/>\n    <stop offset=\"1\" stop-color=\"#FFF4D6\"/>\n  </linearGradient>\n  <linearGradient id=\"hd-hill1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n    <stop offset=\"0\" stop-color=\"#8EE06B\"/><stop offset=\"1\" stop-color=\"#56B947\"/>\n  </linearGradient>\n  <linearGradient id=\"hd-hill2\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n    <stop offset=\"0\" stop-color=\"#B8EE8C\"/><stop offset=\"1\" stop-color=\"#7FD064\"/>\n  </linearGradient>\n  <radialGradient id=\"hd-sun\" cx=\"50%\" cy=\"50%\" r=\"50%\">\n    <stop offset=\"0\" stop-color=\"#FFF3A6\"/><stop offset=\"0.7\" stop-color=\"#FFD43B\"/><stop offset=\"1\" stop-color=\"#FFC21A\"/>\n  </radialGradient>\n  <!-- fur gradients -->\n  <radialGradient id=\"hd-foxG\" cx=\"38%\" cy=\"30%\" r=\"75%\">\n    <stop offset=\"0\" stop-color=\"#FFB46A\"/><stop offset=\"0.6\" stop-color=\"#FF8A33\"/><stop offset=\"1\" stop-color=\"#F06A1C\"/>\n  </radialGradient>\n  <radialGradient id=\"hd-creamG\" cx=\"45%\" cy=\"35%\" r=\"70%\">\n    <stop offset=\"0\" stop-color=\"#FFFFFF\"/><stop offset=\"1\" stop-color=\"#FFE8D2\"/>\n  </radialGradient>\n  <radialGradient id=\"hd-bunG\" cx=\"38%\" cy=\"30%\" r=\"75%\">\n    <stop offset=\"0\" stop-color=\"#FFFFFF\"/><stop offset=\"0.7\" stop-color=\"#F3ECFF\"/><stop offset=\"1\" stop-color=\"#DCCFF5\"/>\n  </radialGradient>\n  <radialGradient id=\"hd-pandaW\" cx=\"38%\" cy=\"30%\" r=\"75%\">\n    <stop offset=\"0\" stop-color=\"#FFFFFF\"/><stop offset=\"1\" stop-color=\"#E4E8EE\"/>\n  </radialGradient>\n  <radialGradient id=\"hd-pandaB\" cx=\"38%\" cy=\"30%\" r=\"80%\">\n    <stop offset=\"0\" stop-color=\"#4C4F5C\"/><stop offset=\"1\" stop-color=\"#22232B\"/>\n  </radialGradient>\n  <radialGradient id=\"hd-chickG\" cx=\"38%\" cy=\"30%\" r=\"75%\">\n    <stop offset=\"0\" stop-color=\"#FFF27A\"/><stop offset=\"0.6\" stop-color=\"#FFD626\"/><stop offset=\"1\" stop-color=\"#F5B800\"/>\n  </radialGradient>\n  <linearGradient id=\"hd-titleG\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n    <stop offset=\"0\" stop-color=\"#FF9A3C\"/><stop offset=\"1\" stop-color=\"#F0552A\"/>\n  </linearGradient>\n  <filter id=\"hd-soft\" x=\"-30%\" y=\"-30%\" width=\"160%\" height=\"160%\">\n    <feDropShadow dx=\"0\" dy=\"6\" stdDeviation=\"5\" flood-color=\"#2F6B2A\" flood-opacity=\"0.25\"/>\n  </filter>\n  <filter id=\"hd-tsh\" x=\"-10%\" y=\"-20%\" width=\"120%\" height=\"150%\">\n    <feDropShadow dx=\"0\" dy=\"5\" stdDeviation=\"0\" flood-color=\"#B8401C\" flood-opacity=\"1\"/>\n    <feDropShadow dx=\"0\" dy=\"10\" stdDeviation=\"8\" flood-color=\"#1D5E86\" flood-opacity=\"0.25\"/>\n  </filter>\n\n  <!-- shared eye -->\n  <g id=\"hd-eye\">\n    <ellipse cx=\"0\" cy=\"0\" rx=\"9.5\" ry=\"12\" fill=\"#2B1A12\"/>\n    <circle cx=\"-3\" cy=\"-4.5\" r=\"3.6\" fill=\"#fff\"/>\n    <circle cx=\"3\" cy=\"4\" r=\"1.7\" fill=\"#fff\"/>\n  </g>\n  <path id=\"hd-star\" d=\"M0,-12 L3.5,-3.8 L12,-3.7 L5.4,1.8 L7.4,10.5 L0,5.8 L-7.4,10.5 L-5.4,1.8 L-12,-3.7 L-3.5,-3.8Z\"/>\n  <path id=\"hd-heart\" d=\"M0,10 C-14,0 -14,-12 -6,-12 C-2,-12 0,-8 0,-6 C0,-8 2,-12 6,-12 C14,-12 14,0 0,10Z\"/>\n  <g id=\"hd-note\">\n    <ellipse cx=\"0\" cy=\"18\" rx=\"9\" ry=\"7\" transform=\"rotate(-20 0 18)\"/><rect x=\"6\" y=\"-16\" width=\"3.8\" height=\"34\" rx=\"1.5\"/>\n    <path d=\"M9.8,-16 q14,5 11,19 q-3,-9 -11,-9z\"/>\n  </g>\n  <g id=\"hd-cloud\" fill=\"#fff\">\n    <ellipse cx=\"0\" cy=\"0\" rx=\"46\" ry=\"20\"/><circle cx=\"-18\" cy=\"-12\" r=\"20\"/><circle cx=\"14\" cy=\"-18\" r=\"24\"/>\n  </g>\n</defs></svg>";
+const HUB_SCENE = "<svg class=\"hub-scene\" viewBox=\"0 0 480 190\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n<rect width=\"480\" height=\"190\" rx=\"26\" fill=\"url(#hd-sky)\"/>\n<circle cx=\"440\" cy=\"26\" r=\"34\" fill=\"url(#hd-sun)\"/>\n<g fill=\"#fff\" opacity=\".9\"><ellipse cx=\"170\" cy=\"36\" rx=\"34\" ry=\"14\"/><circle cx=\"156\" cy=\"27\" r=\"14\"/><circle cx=\"182\" cy=\"23\" r=\"17\"/></g>\n<path d=\"M0,150 C120,128 250,140 330,134 C400,129 440,132 480,138 L480,190 L0,190Z\" fill=\"url(#hd-hill2)\"/>\n<path d=\"M0,168 C130,156 260,166 360,158 C420,153 450,156 480,160 L480,190 L0,190Z\" fill=\"url(#hd-hill1)\"/>\n<g transform=\"translate(105,176) scale(0.62) translate(-575,-438)\">\n<ellipse cx=\"575\" cy=\"438\" rx=\"34\" ry=\"7\" fill=\"#2F6B2A\" opacity=\"0.18\"/>\n<g transform=\"translate(575,402) rotate(-8)\" filter=\"url(#hd-soft)\">\n<g transform=\"rotate(-14 -16 -150)\">\n<ellipse cx=\"-16\" cy=\"-175\" rx=\"15\" ry=\"44\" fill=\"url(#hd-bunG)\"/>\n<ellipse cx=\"-16\" cy=\"-172\" rx=\"7.5\" ry=\"33\" fill=\"#FFB3C7\"/>\n</g>\n<g transform=\"rotate(16 16 -150)\">\n<ellipse cx=\"16\" cy=\"-175\" rx=\"15\" ry=\"44\" fill=\"url(#hd-bunG)\"/>\n<ellipse cx=\"16\" cy=\"-172\" rx=\"7.5\" ry=\"33\" fill=\"#FFB3C7\"/>\n</g>\n<ellipse cx=\"0\" cy=\"-36\" rx=\"30\" ry=\"34\" fill=\"url(#hd-bunG)\"/>\n<ellipse cx=\"0\" cy=\"-30\" rx=\"18\" ry=\"22\" fill=\"#fff\"/>\n<ellipse cx=\"-20\" cy=\"-4\" rx=\"15\" ry=\"9\" fill=\"#F3ECFF\" transform=\"rotate(-20 -20 -4)\"/>\n<ellipse cx=\"20\" cy=\"-4\" rx=\"15\" ry=\"9\" fill=\"#F3ECFF\" transform=\"rotate(20 20 -4)\"/>\n<ellipse cx=\"-32\" cy=\"-62\" rx=\"9\" ry=\"17\" fill=\"#F3ECFF\" transform=\"rotate(35 -32 -62)\"/>\n<ellipse cx=\"32\" cy=\"-62\" rx=\"9\" ry=\"17\" fill=\"#F3ECFF\" transform=\"rotate(-35 32 -62)\"/>\n<ellipse cx=\"0\" cy=\"-108\" rx=\"50\" ry=\"45\" fill=\"url(#hd-bunG)\"/>\n<use href=\"#hd-eye\" transform=\"translate(-19,-112)\"/>\n<use href=\"#hd-eye\" transform=\"translate(19,-112)\"/>\n<ellipse cx=\"-33\" cy=\"-94\" rx=\"9\" ry=\"6\" fill=\"#FF8FB0\" opacity=\"0.7\"/>\n<ellipse cx=\"33\" cy=\"-94\" rx=\"9\" ry=\"6\" fill=\"#FF8FB0\" opacity=\"0.7\"/>\n<path d=\"M-5,-98 L5,-98 L0,-92Z\" fill=\"#FF6F96\"/>\n<path d=\"M-9,-90 Q0,-76 9,-90 Z\" fill=\"#8C2A2A\"/>\n<path d=\"M-5,-84 Q0,-79 5,-84 Q0,-86 -5,-84Z\" fill=\"#FF7F95\"/>\n</g>\n<g stroke=\"#fff\" stroke-width=\"4\" stroke-linecap=\"round\" opacity=\"0.9\">\n<line x1=\"530\" y1=\"420\" x2=\"518\" y2=\"432\"/><line x1=\"620\" y1=\"420\" x2=\"632\" y2=\"432\"/>\n</g>\n</g>\n<g transform=\"translate(370,178) scale(0.6) translate(-910,-436)\">\n<ellipse cx=\"910\" cy=\"436\" rx=\"56\" ry=\"9\" fill=\"#2F6B2A\" opacity=\"0.2\"/>\n<g transform=\"translate(910,430)\" filter=\"url(#hd-soft)\">\n<ellipse cx=\"0\" cy=\"-48\" rx=\"46\" ry=\"46\" fill=\"url(#hd-pandaW)\"/>\n<ellipse cx=\"-30\" cy=\"-12\" rx=\"20\" ry=\"15\" fill=\"url(#hd-pandaB)\"/>\n<ellipse cx=\"30\" cy=\"-12\" rx=\"20\" ry=\"15\" fill=\"url(#hd-pandaB)\"/>\n<ellipse cx=\"-30\" cy=\"-12\" rx=\"9\" ry=\"7\" fill=\"#5A5D6A\"/>\n<ellipse cx=\"30\" cy=\"-12\" rx=\"9\" ry=\"7\" fill=\"#5A5D6A\"/>\n<ellipse cx=\"-22\" cy=\"-62\" rx=\"13\" ry=\"24\" fill=\"url(#hd-pandaB)\" transform=\"rotate(-40 -22 -62)\"/>\n<ellipse cx=\"22\" cy=\"-62\" rx=\"13\" ry=\"24\" fill=\"url(#hd-pandaB)\" transform=\"rotate(40 22 -62)\"/>\n<circle cx=\"-42\" cy=\"-150\" r=\"18\" fill=\"url(#hd-pandaB)\"/>\n<circle cx=\"42\" cy=\"-150\" r=\"18\" fill=\"url(#hd-pandaB)\"/>\n<ellipse cx=\"0\" cy=\"-120\" rx=\"58\" ry=\"50\" fill=\"url(#hd-pandaW)\"/>\n<ellipse cx=\"-22\" cy=\"-122\" rx=\"15\" ry=\"18\" fill=\"#2A2B33\" transform=\"rotate(25 -22 -122)\"/>\n<ellipse cx=\"22\" cy=\"-122\" rx=\"15\" ry=\"18\" fill=\"#2A2B33\" transform=\"rotate(-25 22 -122)\"/>\n<circle cx=\"-21\" cy=\"-123\" r=\"7.5\" fill=\"#fff\"/><circle cx=\"21\" cy=\"-123\" r=\"7.5\" fill=\"#fff\"/>\n<circle cx=\"-20\" cy=\"-122\" r=\"5\" fill=\"#2B1A12\"/><circle cx=\"22\" cy=\"-122\" r=\"5\" fill=\"#2B1A12\"/>\n<circle cx=\"-22\" cy=\"-125\" r=\"2\" fill=\"#fff\"/><circle cx=\"20\" cy=\"-125\" r=\"2\" fill=\"#fff\"/>\n<ellipse cx=\"0\" cy=\"-102\" rx=\"8\" ry=\"5.5\" fill=\"#2A2B33\"/>\n<path d=\"M-11,-94 Q0,-78 11,-94 Z\" fill=\"#8C2A2A\"/>\n<path d=\"M-6,-86 Q0,-81 6,-86 Q0,-89 -6,-86Z\" fill=\"#FF7F95\"/>\n<ellipse cx=\"-40\" cy=\"-100\" rx=\"9\" ry=\"6\" fill=\"#FF8FB0\" opacity=\"0.6\"/>\n<ellipse cx=\"40\" cy=\"-100\" rx=\"9\" ry=\"6\" fill=\"#FF8FB0\" opacity=\"0.6\"/>\n</g>\n<g fill=\"#FFC21A\">\n</g>\n</g>\n<g transform=\"translate(36,62) scale(0.46) translate(-655,-175)\">\n<g transform=\"translate(655,175) rotate(-10)\" filter=\"url(#hd-soft)\">\n<path d=\"M-4,-40 Q-2,-56 6,-48 Q9,-60 16,-46\" stroke=\"#F5B800\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/>\n<ellipse cx=\"-36\" cy=\"-14\" rx=\"12\" ry=\"22\" fill=\"#FFD626\" transform=\"rotate(-55 -36 -14)\"/>\n<ellipse cx=\"36\" cy=\"-14\" rx=\"12\" ry=\"22\" fill=\"#FFD626\" transform=\"rotate(55 36 -14)\"/>\n<circle cx=\"0\" cy=\"0\" r=\"38\" fill=\"url(#hd-chickG)\"/>\n<use href=\"#hd-eye\" transform=\"translate(-13,-6) scale(0.72)\"/>\n<use href=\"#hd-eye\" transform=\"translate(13,-6) scale(0.72)\"/>\n<path d=\"M-9,4 L9,4 L0,13Z\" fill=\"#FF8A1F\"/>\n<path d=\"M-7,10 L7,10 L0,17Z\" fill=\"#E86A10\"/>\n<ellipse cx=\"-24\" cy=\"8\" rx=\"6\" ry=\"4\" fill=\"#FF8F6A\" opacity=\"0.6\"/>\n<ellipse cx=\"24\" cy=\"8\" rx=\"6\" ry=\"4\" fill=\"#FF8F6A\" opacity=\"0.6\"/>\n<path d=\"M-8,36 l-4,10 M-8,36 l0,11 M8,36 l4,10 M8,36 l0,11\" stroke=\"#FF8A1F\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n</g>\n</g>\n<g transform=\"translate(240,182) scale(0.64) translate(-760,-446)\">\n<ellipse cx=\"760\" cy=\"446\" rx=\"66\" ry=\"10\" fill=\"#2F6B2A\" opacity=\"0.22\"/>\n<g transform=\"translate(760,440) scale(1.12)\" filter=\"url(#hd-soft)\">\n<path d=\"M26,-40 C78,-44 104,-96 88,-150 C80,-118 64,-100 44,-92 C56,-84 50,-66 26,-62Z\" fill=\"url(#hd-foxG)\"/>\n<path d=\"M88,-150 C80,-125 70,-112 58,-104 C72,-112 86,-122 92,-136Z\" fill=\"#fff\"/>\n<ellipse cx=\"-17\" cy=\"-8\" rx=\"15\" ry=\"10\" fill=\"#3A2418\"/>\n<ellipse cx=\"17\" cy=\"-8\" rx=\"15\" ry=\"10\" fill=\"#3A2418\"/>\n<ellipse cx=\"0\" cy=\"-48\" rx=\"36\" ry=\"40\" fill=\"url(#hd-foxG)\"/>\n<ellipse cx=\"0\" cy=\"-42\" rx=\"21\" ry=\"28\" fill=\"url(#hd-creamG)\"/>\n<ellipse cx=\"32\" cy=\"-50\" rx=\"9\" ry=\"18\" fill=\"#F07A28\" transform=\"rotate(-20 32 -50)\"/>\n<path d=\"M-58,-150 C-62,-196 -54,-214 -46,-212 C-34,-206 -14,-186 -12,-168Z\" fill=\"url(#hd-foxG)\"/>\n<path d=\"M58,-150 C62,-196 54,-214 46,-212 C34,-206 14,-186 12,-168Z\" fill=\"url(#hd-foxG)\"/>\n<path d=\"M-46,-158 C-50,-186 -46,-198 -42,-196 C-34,-190 -24,-178 -22,-168Z\" fill=\"#FFD9BF\"/>\n<path d=\"M46,-158 C50,-186 46,-198 42,-196 C34,-190 24,-178 22,-168Z\" fill=\"#FFD9BF\"/>\n<path d=\"M-66,-128 C-66,-170 -36,-188 0,-188 C36,-188 66,-170 66,-128 C66,-104 50,-86 0,-84 C-50,-86 -66,-104 -66,-128Z\" fill=\"url(#hd-foxG)\"/>\n<path d=\"M-62,-118 C-50,-120 -30,-114 -14,-108 C-8,-96 -2,-92 0,-92 C2,-92 8,-96 14,-108 C30,-114 50,-120 62,-118 C56,-96 36,-84 0,-84 C-36,-84 -56,-96 -62,-118Z\" fill=\"url(#hd-creamG)\"/>\n<use href=\"#hd-eye\" transform=\"translate(-23,-134) scale(1.05)\"/>\n<use href=\"#hd-eye\" transform=\"translate(23,-134) scale(1.05)\"/>\n<ellipse cx=\"0\" cy=\"-110\" rx=\"8\" ry=\"5.5\" fill=\"#2B1A12\"/>\n<ellipse cx=\"-2\" cy=\"-112\" rx=\"2.5\" ry=\"1.4\" fill=\"#fff\" opacity=\"0.8\"/>\n<path d=\"M-12,-102 Q0,-84 12,-102 Z\" fill=\"#8C2A2A\"/>\n<path d=\"M-7,-93 Q0,-87 7,-93 Q0,-96 -7,-93Z\" fill=\"#FF7F95\"/>\n<ellipse cx=\"-44\" cy=\"-112\" rx=\"9\" ry=\"6\" fill=\"#FF6F6F\" opacity=\"0.45\"/>\n<ellipse cx=\"44\" cy=\"-112\" rx=\"9\" ry=\"6\" fill=\"#FF6F6F\" opacity=\"0.45\"/>\n<g transform=\"translate(-36,-68) rotate(-40)\">\n<ellipse cx=\"0\" cy=\"-30\" rx=\"10\" ry=\"30\" fill=\"#FF8A33\"/>\n<ellipse cx=\"0\" cy=\"-58\" rx=\"11\" ry=\"10\" fill=\"#3A2418\"/>\n</g>\n</g>\n</g>\n<g fill=\"#7B4DFF\"><use href=\"#hd-note\" transform=\"translate(440,100) rotate(14) scale(.8)\"/></g>\n<g fill=\"#FF4F8B\"><use href=\"#hd-note\" transform=\"translate(152,92) rotate(-10) scale(.7)\"/></g>\n<use href=\"#hd-heart\" transform=\"translate(318,128) scale(.8)\" fill=\"#FF4F78\"/>\n<use href=\"#hd-star\" transform=\"translate(232,22) scale(.7)\" fill=\"#FFC21A\"/>\n</svg>";
+const SECTION_ART = {"animals": "<g fill=\"#fff\"><ellipse cx=\"0\" cy=\"10\" rx=\"17\" ry=\"14\"/><circle cx=\"-19\" cy=\"-10\" r=\"7\"/><circle cx=\"-7\" cy=\"-20\" r=\"7\"/><circle cx=\"7\" cy=\"-20\" r=\"7\"/><circle cx=\"19\" cy=\"-10\" r=\"7\"/></g>", "planets": "<circle cx=\"0\" cy=\"0\" r=\"22\" fill=\"#FFB347\"/><path d=\"M-22,-2 C-8,4 8,4 22,-2\" stroke=\"#F08A24\" stroke-width=\"5\" fill=\"none\"/><ellipse cx=\"0\" cy=\"2\" rx=\"38\" ry=\"10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" transform=\"rotate(-18)\"/><circle cx=\"-30\" cy=\"-26\" r=\"3\" fill=\"#fff\"/><circle cx=\"28\" cy=\"24\" r=\"2.5\" fill=\"#fff\"/><use href=\"#hd-star\" transform=\"translate(28,-28) scale(0.5)\" fill=\"#FFE066\"/>", "jobs": "<rect x=\"-14\" y=\"-28\" width=\"28\" height=\"14\" rx=\"6\" fill=\"none\" stroke=\"#7A3B1E\" stroke-width=\"5\"/><rect x=\"-32\" y=\"-18\" width=\"64\" height=\"46\" rx=\"10\" fill=\"#fff\"/><rect x=\"-32\" y=\"-18\" width=\"64\" height=\"10\" rx=\"5\" fill=\"#E9E2DA\"/><rect x=\"-5\" y=\"-4\" width=\"10\" height=\"26\" rx=\"2\" fill=\"#FF4F5E\"/><rect x=\"-13\" y=\"4\" width=\"26\" height=\"10\" rx=\"2\" fill=\"#FF4F5E\"/>", "colors": "<path d=\"M-30,4 C-34,-22 -8,-34 12,-28 C34,-22 38,0 24,8 C14,14 20,24 6,28 C-16,34 -28,22 -30,4Z\" fill=\"#fff\"/><circle cx=\"-16\" cy=\"-6\" r=\"7\" fill=\"#FF4F5E\"/><circle cx=\"2\" cy=\"-18\" r=\"7\" fill=\"#FFC21A\"/><circle cx=\"20\" cy=\"-10\" r=\"7\" fill=\"#3CC46A\"/><circle cx=\"-8\" cy=\"14\" r=\"7\" fill=\"#3D8BFF\"/><circle cx=\"12\" cy=\"12\" r=\"5\" fill=\"#E066C6\"/><g transform=\"rotate(35 22 22)\"><rect x=\"18\" y=\"-6\" width=\"7\" height=\"34\" rx=\"3\" fill=\"#8A5A00\"/><path d=\"M17,-6 h9 l-4.5,-12z\" fill=\"#FF4F5E\"/></g>", "numbers": "<g transform=\"translate(-16,14) rotate(-8)\"><rect x=\"-15\" y=\"-15\" width=\"30\" height=\"30\" rx=\"6\" fill=\"#FF4F5E\"/><text x=\"0\" y=\"10\" text-anchor=\"middle\" font-family=\"Baloo 2,sans-serif\" font-weight=\"800\" font-size=\"27\" fill=\"#fff\">1</text></g><g transform=\"translate(16,14) rotate(6)\"><rect x=\"-15\" y=\"-15\" width=\"30\" height=\"30\" rx=\"6\" fill=\"#3D8BFF\"/><text x=\"0\" y=\"10\" text-anchor=\"middle\" font-family=\"Baloo 2,sans-serif\" font-weight=\"800\" font-size=\"27\" fill=\"#fff\">2</text></g><g transform=\"translate(0,-17) rotate(-4)\"><rect x=\"-15\" y=\"-15\" width=\"30\" height=\"30\" rx=\"6\" fill=\"#3CC46A\"/><text x=\"0\" y=\"10\" text-anchor=\"middle\" font-family=\"Baloo 2,sans-serif\" font-weight=\"800\" font-size=\"27\" fill=\"#fff\">3</text></g>", "shapes": "<path d=\"M-14,-30 L6,2 L-34,2Z\" fill=\"#FFC21A\" stroke=\"#fff\" stroke-width=\"3\" stroke-linejoin=\"round\"/><circle cx=\"18\" cy=\"-12\" r=\"15\" fill=\"#FF4F8B\" stroke=\"#fff\" stroke-width=\"3\"/><rect x=\"-8\" y=\"6\" width=\"26\" height=\"26\" rx=\"4\" fill=\"#3D8BFF\" stroke=\"#fff\" stroke-width=\"3\" transform=\"rotate(10 5 19)\"/>", "food": "<g transform=\"translate(-10,4)\"><circle cx=\"8\" cy=\"4\" r=\"20\" fill=\"#FF3B3B\" stroke=\"#fff\" stroke-width=\"3\"/><circle cx=\"-8\" cy=\"4\" r=\"20\" fill=\"#FF3B3B\" stroke=\"#fff\" stroke-width=\"3\"/><circle cx=\"8\" cy=\"4\" r=\"18.5\" fill=\"#FF3B3B\"/><ellipse cx=\"-12\" cy=\"-4\" rx=\"5\" ry=\"7\" fill=\"#fff\" opacity=\"0.5\"/><rect x=\"-1.5\" y=\"-26\" width=\"4\" height=\"12\" rx=\"2\" fill=\"#7A4E00\"/><ellipse cx=\"9\" cy=\"-20\" rx=\"9\" ry=\"4.5\" fill=\"#3CC46A\" transform=\"rotate(-25 9 -20)\"/></g><g transform=\"translate(24,10) rotate(30)\"><path d=\"M-6,-14 L6,-14 L0,26Z\" fill=\"#FF8A1F\" stroke=\"#fff\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/><path d=\"M0,-14 l-6,-12 M0,-14 l0,-14 M0,-14 l6,-12\" stroke=\"#3CC46A\" stroke-width=\"4\" stroke-linecap=\"round\"/></g>", "vehicles": "<path d=\"M-34,10 L-34,-2 Q-32,-10 -22,-12 L-14,-26 Q-10,-30 0,-30 L14,-30 Q22,-30 26,-22 L32,-12 Q38,-10 38,0 L38,10Z\" fill=\"#FF4F5E\"/><path d=\"M-10,-24 L-2,-24 L-2,-12 L-17,-12Z\" fill=\"#BDE9FF\"/><path d=\"M2,-24 L14,-24 Q18,-24 20,-20 L24,-12 L2,-12Z\" fill=\"#BDE9FF\"/><circle cx=\"-18\" cy=\"12\" r=\"10\" fill=\"#2B2B33\" stroke=\"#fff\" stroke-width=\"3\"/><circle cx=\"22\" cy=\"12\" r=\"10\" fill=\"#2B2B33\" stroke=\"#fff\" stroke-width=\"3\"/><circle cx=\"-18\" cy=\"12\" r=\"3.5\" fill=\"#ccc\"/><circle cx=\"22\" cy=\"12\" r=\"3.5\" fill=\"#ccc\"/><circle cx=\"34\" cy=\"-2\" r=\"3\" fill=\"#FFE066\"/>", "weather": "<circle cx=\"-10\" cy=\"-12\" r=\"16\" fill=\"#FFD43B\"/><g stroke=\"#FFD43B\" stroke-width=\"4\" stroke-linecap=\"round\"><line x1=\"-10\" y1=\"-36\" x2=\"-10\" y2=\"-31\"/><line x1=\"-34\" y1=\"-12\" x2=\"-29\" y2=\"-12\"/><line x1=\"-27\" y1=\"-29\" x2=\"-23\" y2=\"-25\"/><line x1=\"7\" y1=\"-29\" x2=\"3\" y2=\"-25\"/></g><g fill=\"#fff\"><ellipse cx=\"8\" cy=\"6\" rx=\"26\" ry=\"12\"/><circle cx=\"-2\" cy=\"-1\" r=\"12\"/><circle cx=\"14\" cy=\"-5\" r=\"14\"/></g><g fill=\"#BDE9FF\"><path d=\"M-2,22 q-4,6 0,8 q4,-2 0,-8z\"/><path d=\"M10,22 q-4,6 0,8 q4,-2 0,-8z\"/><path d=\"M22,22 q-4,6 0,8 q4,-2 0,-8z\"/></g>", "body": "<circle cx=\"0\" cy=\"2\" r=\"26\" fill=\"#FFD3B0\" stroke=\"#fff\" stroke-width=\"3\"/><path d=\"M-26,-2 C-26,-26 26,-26 26,-2 C18,-14 6,-10 0,-18 C-6,-10 -18,-14 -26,-2Z\" fill=\"#7A4220\"/><circle cx=\"-9\" cy=\"2\" r=\"3.5\" fill=\"#2B1A12\"/><circle cx=\"9\" cy=\"2\" r=\"3.5\" fill=\"#2B1A12\"/><path d=\"M-9,12 Q0,20 9,12\" stroke=\"#C0392B\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"-17\" cy=\"10\" r=\"4\" fill=\"#FF8FB0\" opacity=\"0.7\"/><circle cx=\"17\" cy=\"10\" r=\"4\" fill=\"#FF8FB0\" opacity=\"0.7\"/><use href=\"#hd-heart\" transform=\"translate(26,24) scale(0.9)\" fill=\"#FF4F78\"/>", "english": "<g transform=\"translate(-18,12) rotate(-8)\"><rect x=\"-15\" y=\"-15\" width=\"30\" height=\"30\" rx=\"6\" fill=\"#FF4F5E\" stroke=\"#fff\" stroke-width=\"2.5\"/><text x=\"0\" y=\"10\" text-anchor=\"middle\" font-family=\"Baloo 2,sans-serif\" font-weight=\"800\" font-size=\"25\" fill=\"#fff\">A</text></g><g transform=\"translate(14,14) rotate(6)\"><rect x=\"-15\" y=\"-15\" width=\"30\" height=\"30\" rx=\"6\" fill=\"#FFC21A\" stroke=\"#fff\" stroke-width=\"2.5\"/><text x=\"0\" y=\"10\" text-anchor=\"middle\" font-family=\"Baloo 2,sans-serif\" font-weight=\"800\" font-size=\"25\" fill=\"#fff\">B</text></g><g transform=\"translate(-2,-18) rotate(-4)\"><rect x=\"-15\" y=\"-15\" width=\"30\" height=\"30\" rx=\"6\" fill=\"#3CC46A\" stroke=\"#fff\" stroke-width=\"2.5\"/><text x=\"0\" y=\"10\" text-anchor=\"middle\" font-family=\"Baloo 2,sans-serif\" font-weight=\"800\" font-size=\"25\" fill=\"#fff\">C</text></g><use href=\"#hd-star\" transform=\"translate(28,-24) scale(0.6)\" fill=\"#fff\"/>"};
+const MODE_ART = {"sections": "<rect x=\"-30\" y=\"-24\" width=\"30\" height=\"46\" rx=\"4\" fill=\"#FF6B6B\" transform=\"rotate(-6)\"/><rect x=\"0\" y=\"-24\" width=\"30\" height=\"46\" rx=\"4\" fill=\"#4FA8F5\" transform=\"rotate(6)\"/><rect x=\"-26\" y=\"-20\" width=\"24\" height=\"38\" rx=\"3\" fill=\"#fff\" transform=\"rotate(-6)\"/><rect x=\"2\" y=\"-20\" width=\"24\" height=\"38\" rx=\"3\" fill=\"#fff\" transform=\"rotate(6)\"/><g stroke=\"#E3D3B8\" stroke-width=\"2.5\" stroke-linecap=\"round\"><line x1=\"-20\" y1=\"-10\" x2=\"-8\" y2=\"-11\" /><line x1=\"-20\" y1=\"-2\" x2=\"-8\" y2=\"-3\"/><line x1=\"8\" y1=\"-11\" x2=\"20\" y2=\"-10\"/><line x1=\"8\" y1=\"-3\" x2=\"20\" y2=\"-2\"/></g><use href=\"#hd-star\" transform=\"translate(0,-32) scale(0.75)\" fill=\"#FFC21A\"/>", "match": "<g transform=\"translate(-12,6) rotate(-8) scale(0.85)\"><g fill=\"#fff\"><rect x=\"-22\" y=\"-22\" width=\"44\" height=\"44\" rx=\"5\"/><circle cx=\"0\" cy=\"-24\" r=\"10\"/><circle cx=\"24\" cy=\"0\" r=\"10\"/></g><g fill=\"#FFC21A\"><rect x=\"-19\" y=\"-19\" width=\"38\" height=\"38\" rx=\"3\"/><circle cx=\"0\" cy=\"-23\" r=\"7.5\"/><circle cx=\"23\" cy=\"0\" r=\"7.5\"/></g></g><g transform=\"translate(16,-10) rotate(16) scale(0.72)\"><g fill=\"#fff\"><rect x=\"-22\" y=\"-22\" width=\"44\" height=\"44\" rx=\"5\"/><circle cx=\"0\" cy=\"-24\" r=\"10\"/><circle cx=\"24\" cy=\"0\" r=\"10\"/></g><g fill=\"#FF4F8B\"><rect x=\"-19\" y=\"-19\" width=\"38\" height=\"38\" rx=\"3\"/><circle cx=\"0\" cy=\"-23\" r=\"7.5\"/><circle cx=\"23\" cy=\"0\" r=\"7.5\"/></g></g>", "comp": "<path d=\"M-20,-28 h40 v14 a20,20 0 0 1 -40,0z\" fill=\"#FFC21A\"/><path d=\"M-20,-22 h-10 a10,10 0 0 0 10,14 M20,-22 h10 a10,10 0 0 1 -10,14\" fill=\"none\" stroke=\"#FFC21A\" stroke-width=\"5\"/><rect x=\"-5\" y=\"4\" width=\"10\" height=\"12\" fill=\"#F0A800\"/><rect x=\"-16\" y=\"16\" width=\"32\" height=\"10\" rx=\"3\" fill=\"#8A5A00\"/><use href=\"#hd-star\" transform=\"translate(0,-16) scale(0.7)\" fill=\"#fff\"/>", "badges": "<path d=\"M-12,-34 L-4,-10 L-14,-10Z M12,-34 L4,-10 L14,-10Z\" fill=\"#4FA8F5\"/><circle cx=\"0\" cy=\"8\" r=\"20\" fill=\"#FFC21A\" stroke=\"#fff\" stroke-width=\"3\"/><use href=\"#hd-star\" transform=\"translate(0,9) scale(1.05)\" fill=\"#fff\"/>"};
+const TILE_GRAD = {"animals": ["#7EE08B", "#3FAE56"], "planets": ["#8FA6FF", "#5468D8"], "jobs": ["#FFB49E", "#F0705A"], "colors": ["#FF96E4", "#D15AC0"], "numbers": ["#FFCB6B", "#F29A2E"], "shapes": ["#6FE3CF", "#2FB19D"], "food": ["#FF9B9B", "#E85454"], "vehicles": ["#A3B4FF", "#6577E0"], "weather": ["#7DD6F5", "#3AA1D2"], "body": ["#E4A6EE", "#B867C8"], "english": ["#6CC2FF", "#2F8DE8"]};
+function artSvg(inner, size){ return `<svg class="art" width="${size}" height="${size}" viewBox="-50 -50 100 100" aria-hidden="true">${inner}</svg>`; }
+function sectionArt(id, size){ return SECTION_ART[id] ? artSvg(SECTION_ART[id], size||64) : ''; }
+function tileBg(s){ const g=TILE_GRAD[s.id]; return g ? `linear-gradient(160deg,${g[0]},${g[1]})` : s.color; }
+(function injectArtDefs(){ try{ if(!document.getElementById('hdArtDefs')){ const w=document.createElement('div'); w.id='hdArtDefs'; w.innerHTML=ART_DEFS; document.body.appendChild(w); } }catch(e){} })();
+
 function renderHub(){
   const prem = store.premium;
   const greetAvatar = profile ? profile.avatar : '🐾';
@@ -1028,23 +1257,24 @@ function renderHub(){
           <div class="badge ${prem?'premium-badge':''}">${prem?t('premiumOn'):t('premiumOff')}</div>
         </div>
       </div>
+      <div class="hub-scene-wrap">${HUB_SCENE}</div>
       ${!prem?`<div class="premium-banner"><span>${t('premiumBannerText')}</span><button class="big-btn small" id="goPremium">${t('premiumBtn')}</button></div>`:''}
       <div class="mode-grid">
         <div class="mode-tile" id="tileSections">
-          <div class="ic">📚</div>
+          <div class="ic">${artSvg(MODE_ART.sections,52)}</div>
           <div class="tx"><h3>${t('tileSectionsTitle')}</h3><p>${t('tileSectionsDesc')}</p></div>
         </div>
         <div class="mode-tile" id="tileMatch">
-          <div class="ic">🧩</div>
+          <div class="ic">${artSvg(MODE_ART.match,52)}</div>
           <div class="tx"><h3>${t('tileMatchTitle')}</h3><p>${t('tileMatchDesc')}</p></div>
         </div>
         <div class="mode-tile" id="tileComp" style="position:relative;">
           ${!prem?'<span style="position:absolute;top:10px;right:14px;font-size:18px;">🔒</span>':''}
-          <div class="ic">🏆</div>
+          <div class="ic">${artSvg(MODE_ART.comp,52)}</div>
           <div class="tx"><h3>${t('tileCompTitle')}</h3><p>${t('tileCompDesc')}</p></div>
         </div>
         <div class="mode-tile" id="tileBadges">
-          <div class="ic">🎖</div>
+          <div class="ic">${artSvg(MODE_ART.badges,52)}</div>
           <div class="tx"><h3>${t('tileBadgesTitle')}</h3><p>${t('tileBadgesDesc',{n:profile?(profile.badges||[]).length:0,m:BADGES.length})}</p></div>
         </div>
       </div>
@@ -1115,7 +1345,7 @@ function renderPremium(returnFn){
         <p style="color:var(--ink-soft);line-height:1.6;margin-bottom:16px;">${t('premiumScreenBody')}</p>
         <p id="premMsg" style="color:var(--coral-dark);font-weight:700;min-height:20px;"></p>
         ${prem
-          ? `<div class="badge premium-badge" style="display:block;margin-bottom:10px;">${t('premiumOn')} ✅</div>`
+          ? `<div class="badge premium-badge" style="display:block;margin-bottom:10px;">${t('premiumOn')} ✅</div>${TESTER_FREE_PREMIUM?`<p style="color:var(--ink-soft);margin-top:8px;">${t('testerPremiumNote')}</p>`:''}`
           : `<button class="big-btn purple" id="buyPrem">${t('premiumOffBtn')}</button>`}
         ${(!STORE_SAFE_MODE && !prem) ? `<div style="margin-top:14px;"><button class="ghost-btn" id="devTogglePrem">🧪 Demo: Premium'u Aç (yalnızca test)</button></div>` : ''}
       </div>
@@ -1158,9 +1388,9 @@ function renderSectionGrid(){
   const grid = document.getElementById('secGrid');
   grid.innerHTML = SECTIONS_DATA.map(s=>{
     const locked = !FREE_SECTIONS.includes(s.id) && !store.premium;
-    return `<div class="section-tile" data-id="${s.id}" data-locked="${locked?1:0}" style="background:${s.color};position:relative;">
+    return `<div class="section-tile" data-id="${s.id}" data-locked="${locked?1:0}" style="background:${tileBg(s)};position:relative;">
       ${locked?'<span style="position:absolute;top:6px;right:8px;font-size:16px;">🔒</span>':''}
-      <span class="ic">${s.icon}</span><span class="nm">${nameOf(s.name)}</span>
+      <span class="ic">${sectionArt(s.id,74)||s.icon}</span><span class="nm">${nameOf(s.name)}</span>
     </div>`;
   }).join('');
   grid.querySelectorAll('.section-tile').forEach(el=> el.addEventListener('click', ()=>{
@@ -1196,9 +1426,9 @@ function renderQuizQuestion(){
       <div class="feedback" id="feedback"></div>
     </div>`;
   wireBack(()=>{ quiz=null; renderSectionGrid(); });
-  document.getElementById('speakBtn').addEventListener('click', ()=> speak(item.q));
+  document.getElementById('speakBtn').addEventListener('click', ()=>{ speak(item.q); if(item.sayEn) speakEnglish(item.sayEn); });
   stage.querySelectorAll('.answer-btn').forEach(btn=> btn.addEventListener('click', onQuizAnswer));
-  speak(item.q);
+  speak(item.q); if(item.sayEn) speakEnglish(item.sayEn);
 }
 function onQuizAnswer(e){
   if(quiz.locked) return; quiz.locked = true;
@@ -1217,15 +1447,17 @@ function onQuizAnswer(e){
     if(profile){ ensureProfileShape(profile); profile.stats.correct++; profile.stats.sections[quiz.sectionId]=true; checkBadges(); }
     playApplause(); burstConfetti();
     const msg = nameOf(pick(PRAISE)); feedback.textContent = msg; feedback.className='feedback show good'; speak(msg);
+    if(item.enAnswers) speakEnglish(chosen.t);
   }else{
     playGentle();
     const correctAns = item.answers.find(a=>a.c);
     const msg = nameOf(pick(GENTLE))+' '+correctAns.t;
     feedback.textContent = msg; feedback.className='feedback show soft';
     speak(msg);
+    if(item.enAnswers) speakEnglish(correctAns.t);
   }
   setTimeout(()=>{
-    if(quiz.answered>0 && quiz.answered%10===0){ renderAdBreak(()=> renderQuizQuestion(), 'quiz'); }
+    if(quiz.answered>0 && quiz.answered%10===0){ afterGame(()=> renderAdBreak(()=> renderQuizQuestion(), 'quiz')); }
     else{ renderQuizQuestion(); }
     showBadgeToastQueue();
   }, 2000);
@@ -1263,7 +1495,7 @@ function renderLearningBreakCard(onDone){
         <div class="ad-progress"><div class="ad-progress-bar" id="adBar"></div></div>
         <div class="btn-stack">
           <button class="big-btn green" id="adContinue" disabled>${t('adContinueCd',{s:3})}</button>
-          <button class="ghost-btn" id="adPremium">${t('adPremiumBtn')}</button>
+          ${store.premium?'':`<button class="ghost-btn" id="adPremium">${t('adPremiumBtn')}</button>`}
         </div>
       </div>
     </div>`;
@@ -1278,10 +1510,111 @@ function renderLearningBreakCard(onDone){
     else{ btn.textContent = t('adContinueCd',{s:secs}); }
   }, 1000);
   btn.onclick = ()=>{ if(!btn.disabled) onDone(); };
-  document.getElementById('adPremium').onclick = ()=>{
+  if(document.getElementById('adPremium')) document.getElementById('adPremium').onclick = ()=>{
     const prevOnDone = onDone; stage.innerHTML = ''; renderPremiumThenReturn(prevOnDone);
   };
 }
+
+/* ============================================================
+   RATING PROMPT (for testers / parents) — after a few finished games
+   Behind the parental gate. Nothing is sent automatically: the parent
+   chooses to write on Google Play or send an e-mail themselves.
+============================================================ */
+const FEEDBACK_EMAIL = 'ebruerdikarasu@icloud.com';
+const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.ebruerdikarasu.hayvandostlariapp';
+const RATE_STR = {
+  askTitle:{tr:'Anne ya da babana göster 💛',en:'Show this to a grown-up 💛',de:'Zeig das einem Erwachsenen 💛',nl:'Laat dit aan een volwassene zien 💛',ar:'أرِ هذا لأحد والديك 💛'},
+  askBody:{tr:'Hayvan Dostları\'nı puanlamak ister misiniz? Görüşünüz oyunu daha iyi yapmamıza yardım eder.',en:'Would you like to rate Animal Friends? Your opinion helps us make the game better.',de:'Möchten Sie Tierfreunde bewerten? Ihre Meinung hilft uns, das Spiel zu verbessern.',nl:'Wilt u Dierenvrienden beoordelen? Uw mening helpt ons het spel beter te maken.',ar:'هل تودون تقييم أصدقاء الحيوانات؟ رأيكم يساعدنا على تحسين اللعبة.'},
+  askYes:{tr:'⭐ Puanla (büyükler)',en:'⭐ Rate (grown-ups)',de:'⭐ Bewerten (Erwachsene)',nl:'⭐ Beoordelen (volwassenen)',ar:'⭐ قيّم (للكبار)'},
+  later:{tr:'Şimdi değil',en:'Not now',de:'Nicht jetzt',nl:'Niet nu',ar:'ليس الآن'},
+  starsTitle:{tr:'Oyunu kaç yıldızla puanlarsınız?',en:'How many stars would you give?',de:'Wie viele Sterne geben Sie?',nl:'Hoeveel sterren geeft u?',ar:'كم نجمة تعطون اللعبة؟'},
+  commentPh:{tr:'Neyi beğendiniz, neyi değiştirelim? (isteğe bağlı)',en:'What did you like, what should we change? (optional)',de:'Was gefällt Ihnen, was sollen wir ändern? (optional)',nl:'Wat vond u leuk, wat moeten we veranderen? (optioneel)',ar:'ماذا أعجبكم وماذا نغيّر؟ (اختياري)'},
+  next:{tr:'Devam',en:'Continue',de:'Weiter',nl:'Verder',ar:'متابعة'},
+  thanks:{tr:'Teşekkürler! 💛',en:'Thank you! 💛',de:'Danke! 💛',nl:'Bedankt! 💛',ar:'شكرًا! 💛'},
+  howSend:{tr:'Yorumunuzu bize iletmek için birini seçin:',en:'Choose how to send us your feedback:',de:'Wählen Sie, wie Sie uns Ihr Feedback senden:',nl:'Kies hoe u ons uw feedback stuurt:',ar:'اختاروا طريقة إرسال رأيكم:'},
+  play:{tr:'▶️ Google Play\'de yaz',en:'▶️ Write on Google Play',de:'▶️ Auf Google Play schreiben',nl:'▶️ Schrijf op Google Play',ar:'▶️ اكتب على Google Play'},
+  mail:{tr:'✉️ E-posta ile gönder',en:'✉️ Send by e-mail',de:'✉️ Per E-Mail senden',nl:'✉️ Per e-mail versturen',ar:'✉️ أرسل بالبريد الإلكتروني'},
+  close:{tr:'Oyuna dön',en:'Back to the game',de:'Zurück zum Spiel',nl:'Terug naar het spel',ar:'العودة إلى اللعبة'},
+  mailSubject:{tr:'Hayvan Dostları geri bildirim',en:'Animal Friends feedback',de:'Tierfreunde Feedback',nl:'Dierenvrienden feedback',ar:'ملاحظات أصدقاء الحيوانات'},
+  mailStars:{tr:'Puan',en:'Rating',de:'Bewertung',nl:'Beoordeling',ar:'التقييم'}
+};
+function rs(k){ return (RATE_STR[k][currentLang]) || RATE_STR[k].en; }
+const rateStore = {
+  get(k,d){ try{ const v=localStorage.getItem('hd_rate_'+k); return v===null?d:parseInt(v,10); }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem('hd_rate_'+k, String(v)); }catch(e){} }
+};
+/* Call when a game round ends; shows the prompt when it is time, otherwise just continues. */
+function afterGame(next){
+  const games = rateStore.get('games',0)+1; rateStore.set('games',games);
+  const rated = rateStore.get('done',0), asks = rateStore.get('asks',0), nextAt = rateStore.get('nextAt',3);
+  if(!rated && asks<3 && games>=nextAt){
+    rateStore.set('asks',asks+1); rateStore.set('nextAt',games+4);
+    renderRatingAsk(next);
+  } else { next(); }
+}
+function renderRatingAsk(next){
+  stage.innerHTML = `
+    <div class="screen"><div class="card">
+      <div style="font-size:46px;margin-bottom:6px;">⭐⭐⭐⭐⭐</div>
+      <h2 style="margin-bottom:10px;">${rs('askTitle')}</h2>
+      <p style="color:var(--ink-soft);line-height:1.6;margin-bottom:16px;">${rs('askBody')}</p>
+      <div class="btn-stack">
+        <button class="big-btn purple" id="rateYes">${rs('askYes')}</button>
+        <button class="ghost-btn" id="rateLater">${rs('later')}</button>
+      </div>
+    </div></div>`;
+  document.getElementById('rateLater').onclick = next;
+  document.getElementById('rateYes').onclick = ()=> renderParentalGate(()=> renderRatingStars(next), next);
+}
+function renderRatingStars(next){
+  let stars = 0;
+  stage.innerHTML = `
+    <div class="screen"><div class="card">
+      <h2 style="margin-bottom:12px;">${rs('starsTitle')}</h2>
+      <div id="starRow" style="display:flex;justify-content:center;gap:6px;margin-bottom:14px;">
+        ${[1,2,3,4,5].map(n=>`<button class="rate-star" data-n="${n}" style="font-size:40px;background:none;border:none;cursor:pointer;filter:grayscale(1);opacity:.45;">⭐</button>`).join('')}
+      </div>
+      <textarea id="rateText" rows="3" maxlength="500" placeholder="${rs('commentPh')}" style="width:100%;box-sizing:border-box;border-radius:14px;border:2px solid #EAD9B8;padding:10px;font:inherit;font-size:15px;margin-bottom:14px;"></textarea>
+      <div class="btn-stack">
+        <button class="big-btn green" id="rateNext" disabled>${rs('next')}</button>
+        <button class="ghost-btn" id="rateCancel">${rs('later')}</button>
+      </div>
+    </div></div>`;
+  const btns = stage.querySelectorAll('.rate-star');
+  btns.forEach(b=> b.onclick = ()=>{
+    stars = parseInt(b.dataset.n,10);
+    btns.forEach(x=>{ const on = parseInt(x.dataset.n,10)<=stars; x.style.filter = on?'none':'grayscale(1)'; x.style.opacity = on?'1':'.45'; });
+    document.getElementById('rateNext').disabled = false;
+    try{ playDing(); }catch(e){}
+  });
+  document.getElementById('rateCancel').onclick = next;
+  document.getElementById('rateNext').onclick = ()=>{
+    if(!stars) return;
+    rateStore.set('done', stars);
+    renderRatingSend(stars, document.getElementById('rateText').value.trim(), next);
+  };
+}
+function renderRatingSend(stars, comment, next){
+  stage.innerHTML = `
+    <div class="screen"><div class="card">
+      <div style="font-size:40px;margin-bottom:6px;">${'⭐'.repeat(stars)}</div>
+      <h2 style="margin-bottom:10px;">${rs('thanks')}</h2>
+      <p style="color:var(--ink-soft);line-height:1.6;margin-bottom:16px;">${rs('howSend')}</p>
+      <div class="btn-stack">
+        <button class="big-btn purple" id="ratePlay">${rs('play')}</button>
+        <button class="big-btn" id="rateMail">${rs('mail')}</button>
+        <button class="ghost-btn" id="rateClose">${rs('close')}</button>
+      </div>
+    </div></div>`;
+  playApplause(); burstConfetti(16);
+  document.getElementById('ratePlay').onclick = ()=>{ window.open(PLAY_URL, '_blank'); };
+  document.getElementById('rateMail').onclick = ()=>{
+    const body = `${rs('mailStars')}: ${stars}/5\n\n${comment}\n`;
+    window.location.href = 'mailto:'+FEEDBACK_EMAIL+'?subject='+encodeURIComponent(rs('mailSubject'))+'&body='+encodeURIComponent(body);
+  };
+  document.getElementById('rateClose').onclick = next;
+}
+
 function renderPremiumThenReturn(onDone){
   renderPremium(onDone);
 }
@@ -1300,9 +1633,9 @@ function renderMatchSectionPicker(){
   const grid = document.getElementById('secGrid');
   grid.innerHTML = SECTIONS_DATA.map(s=>{
     const locked = !FREE_SECTIONS.includes(s.id) && !store.premium;
-    return `<div class="section-tile" data-id="${s.id}" data-locked="${locked?1:0}" style="background:${s.color};position:relative;">
+    return `<div class="section-tile" data-id="${s.id}" data-locked="${locked?1:0}" style="background:${tileBg(s)};position:relative;">
       ${locked?'<span style="position:absolute;top:6px;right:8px;font-size:16px;">🔒</span>':''}
-      <span class="ic">${s.icon}</span><span class="nm">${nameOf(s.name)}</span>
+      <span class="ic">${sectionArt(s.id,74)||s.icon}</span><span class="nm">${nameOf(s.name)}</span>
     </div>`;
   }).join('');
   grid.querySelectorAll('.section-tile').forEach(el=> el.addEventListener('click', ()=>{
@@ -1385,8 +1718,8 @@ function renderMatchEndScreen(){
         </div>
       </div>
     </div>`;
-  document.getElementById('again').onclick = ()=> startMatchGame(match.sectionId);
-  document.getElementById('toHub').onclick = renderHub;
+  document.getElementById('again').onclick = ()=> afterGame(()=> startMatchGame(match.sectionId));
+  document.getElementById('toHub').onclick = ()=> afterGame(renderHub);
 }
 
 /* ============================================================
@@ -1511,8 +1844,8 @@ function renderCompLocalResultsScreen(){
         </div>
       </div>
     </div>`;
-  document.getElementById('again').onclick = renderCompLocalSetup;
-  document.getElementById('toHub').onclick = renderHub;
+  document.getElementById('again').onclick = ()=> afterGame(renderCompLocalSetup);
+  document.getElementById('toHub').onclick = ()=> afterGame(renderHub);
 }
 
 /* ---- ONLINE ---- */
