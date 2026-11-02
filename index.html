@@ -845,6 +845,55 @@ const IS_TWA = (function(){
 /* ⚠️ Uygulama Google Play'de herkese açık yayına girince true yapın: web'deki Premium ekranı Play Store'a yönlendirir. */
 const PLAY_LIVE = false;
 
+/* ============================================================
+   CLOUD (Firebase Firestore via REST): anonymous counters + remote config
+   - Counters: web only (never inside the Play Store app), no IDs, no cookies,
+     only "+1" on a daily total. Rules on the server allow nothing else.
+   - Config: announcement + extra questions edited from the admin panel.
+============================================================ */
+const FB = { project:'hayvan-dostlari-febef', key:'AIzaSyD2o8v-XdJsp2bgUETjmyUo98Z6oi0g5xw' };
+const FB_DOCS = 'https://firestore.googleapis.com/v1/projects/' + FB.project + '/databases/(default)/documents';
+function trDay(){ const d = new Date(Date.now() + 3*3600*1000); return d.toISOString().slice(0,10); }   // Türkiye günü
+function stat(field){
+  if(IS_TWA) return;                       // Android app: no counting at all
+  try{
+    fetch(FB_DOCS.replace('/documents','/documents:commit') + '?key=' + FB.key, {
+      method:'POST', keepalive:true, headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ writes:[{ transform:{
+        document:'projects/' + FB.project + '/databases/(default)/documents/stats/' + trDay(),
+        fieldTransforms:[{ fieldPath: field, increment:{ integerValue:'1' } }] } }] })
+    }).catch(()=>{});
+  }catch(e){}
+}
+function fsVal(v){
+  if(!v) return null;
+  if('stringValue' in v) return v.stringValue;
+  if('booleanValue' in v) return v.booleanValue;
+  if('integerValue' in v) return parseInt(v.integerValue,10);
+  if('arrayValue' in v) return (v.arrayValue.values||[]).map(fsVal);
+  if('mapValue' in v){ const o={}; const f=v.mapValue.fields||{}; for(const k in f) o[k]=fsVal(f[k]); return o; }
+  return null;
+}
+let REMOTE = { announce:'', announceOn:false, extraQs:[] };
+const remoteReady = (async function(){
+  try{
+    const r = await fetch(FB_DOCS + '/config/public?key=' + FB.key, {cache:'no-store'});
+    if(!r.ok) return;
+    const j = await r.json(); const f = j.fields || {};
+    REMOTE = { announce: fsVal(f.announce)||'', announceOn: !!fsVal(f.announceOn), extraQs: (fsVal(f.extraQs)||[]).filter(q=>q && q.q && q.a && q.w1 && q.w2) };
+    if(document.getElementById('tileSections')) renderHub();   // show announcement if hub is open
+  }catch(e){}
+})();
+function remoteQuestion(sectionId){
+  if(currentLang !== 'tr') return null;
+  const list = REMOTE.extraQs.filter(q => (q.section||'animals') === sectionId);
+  if(!list.length || Math.random() > 0.3) return null;
+  const q = pick(list);
+  return { emoji: q.emoji || '❓', q: q.q, answers: shuffle([{t:q.a,e:q.emoji||'✅',c:true},{t:q.w1,e:'🔹',c:false},{t:q.w2,e:'🔸',c:false}]) };
+}
+function escHTML(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+
 const FREE_SECTIONS = ['animals','colors','numbers'];
 const FREE_LANGS = ['tr'];
 /* ---- Google Play Billing for Trusted Web Activity (Digital Goods API + Payment Request API) ----
@@ -1147,6 +1196,7 @@ function nextItemIdx(state){
   return state.itemPool[state.itemPtr++];
 }
 function nextQuestion(state){
+  const rq = remoteQuestion(state.sectionId); if(rq) return rq;
   const r = Math.random();
   if(state.sectionId==='animals'){
     if(r<0.08) return genSizeCompare();
@@ -1371,6 +1421,7 @@ function renderHub(){
         </div>
       </div>
       <div class="hub-scene-wrap">${HUB_SCENE}</div>
+      ${(REMOTE.announceOn && REMOTE.announce)?`<div class="premium-banner" style="background:linear-gradient(120deg,#D8F5FF,#AEE3FF);"><span style="color:#1E4E73;">📣 ${escHTML(REMOTE.announce)}</span></div>`:''}
       ${!prem?`<div class="premium-banner"><span>${t('premiumBannerText')}</span><button class="big-btn small" id="goPremium">${t('premiumBtn')}</button></div>`:''}
       <div class="mode-grid">
         <div class="mode-tile" id="tileSections">
@@ -1452,6 +1503,7 @@ function renderParentalGate(onPass, onCancel){
 
 function renderPremium(returnFn){
   returnFn = returnFn || renderHub;
+  stat('premium_views');
   const prem = store.premium;
   stage.innerHTML = `
     <div class="screen top">
@@ -1524,6 +1576,7 @@ function renderSectionGrid(){
    QUIZ SESSION
 ============================================================ */
 function startQuizSession(sectionId){
+  stat('sec_' + sectionId);
   quiz = { sectionId, queue: makeQueue(sectionId), answered:0, correct:0, current:null, locked:false };
   renderQuizQuestion();
 }
@@ -1701,6 +1754,7 @@ function afterGame(next){
   } else { next(); }
 }
 function renderRatingAsk(next){
+  stat('rating_opens');
   stage.innerHTML = `
     <div class="screen"><div class="card">
       <div style="font-size:46px;margin-bottom:6px;">⭐⭐⭐⭐⭐</div>
@@ -1848,6 +1902,7 @@ function showToast(text){
   document.body.appendChild(el); setTimeout(()=>el.remove(),1400);
 }
 function renderMatchEnd(){
+  stat('match_games');
   if(profile){ ensureProfileShape(profile); profile.stats.matches = (profile.stats.matches||0)+1; checkBadges(); }
   maybeShowInterstitial(()=> renderMatchEndScreen());
 }
@@ -2148,6 +2203,7 @@ document.documentElement.lang = currentLang;
 document.documentElement.dir = LANG_META[currentLang].dir;
 if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged = ()=>{}; }
 restorePremiumFromPlay();
+stat('game_opens');
 /* Phone back key: go back inside the game instead of closing it */
 window.addEventListener('popstate', ()=>{
   const ids = ['navBack','gateCancel','rateLater','rateCancel','rateClose','profCancel','toHub'];
